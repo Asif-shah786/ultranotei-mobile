@@ -1,22 +1,16 @@
-# UltraNoteI-Cloud
-UltraNote Infinity Cloud Wallet
+# ultranote_infinity
 
-## Installing Frontend
-- cd UltraNoteI-Cloud/cryptwallet
-- nvm install 14
-- nvm use 14.19.0
-- npm install
-- npm run build
-- mv build /var/www/Cloud
-- chown -R www-data:www-data /var/www
+UltraNote infinity encrypted messaging and billing system with up 100MB file transfers.
 
-Edit .htaccess file and activate https
-- nano /var/www/Cloud/.htaccess
+## Getting Started
 
-## Building Backend 
+This project is a starting point for a Flutter application.
 
-- cd UltraNoteI-Cloud/Backend
-- npm install
+A few resources to get you started if this is your first Flutter project:
 
-## Run Backend
-- Using pm2: pm2 start ./index.js --name=backend
+- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+
+For help getting started with Flutter, view our
+[online documentation](https://flutter.dev/docs), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
