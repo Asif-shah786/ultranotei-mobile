@@ -195,13 +195,13 @@ class _ProfileTabState extends State<ProfileTab> {
             padding: const EdgeInsets.symmetric(horizontal: 25.0),
             child: Column(
               children: [
-                SizedBox(height: 25,),
+                SizedBox(height: 20,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      width: 80,
-                      height: 80,
+                      width: 75,
+                      height: 75,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/icon/ultranote_icon.png"),
@@ -211,7 +211,7 @@ class _ProfileTabState extends State<ProfileTab> {
                     ),
                   ],
                 ),
-                SizedBox(height: 25,),
+                SizedBox(height: 20,),
                 Text("${name}",
                   style: CustomAppTheme.actionBarText,),
                 SizedBox(height: 20,),
@@ -220,6 +220,8 @@ class _ProfileTabState extends State<ProfileTab> {
                 LoginBtn("Reset Password", (){resetPass();}, CustomAppTheme.btnWhiteText),
                 SizedBox(height: 20,),
                 LoginBtn("Activity Log", (){activityLog();}, CustomAppTheme.btnWhiteText),
+                SizedBox(height: 20,),
+                LoginBtn("Settings", (){setting();}, CustomAppTheme.btnWhiteText),
                 SizedBox(height: 20,),
                 SignupBtn("Log out", (){signout();}, CustomAppTheme.btnBlackText),
               ],
@@ -268,6 +270,12 @@ class _ProfileTabState extends State<ProfileTab> {
   activityLog(){
     print('activity log');
     Navigator.pushNamed(context, '/activitylogscreen');
+
+  }
+
+  setting(){
+    print('setting');
+    Navigator.pushNamed(context, '/setingscreen');
 
   }
 

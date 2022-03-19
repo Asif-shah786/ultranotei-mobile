@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Future<CurrentUser> cUSer = userLocalStore.getLoggedInUser();
       cUSer.then((value) {
         print('naem  ${value.id}');
-        if (value.id == 'null' || value.id.isEmpty) {
+        if (value.id.toString() == 'null' || value.id.toString().isEmpty) {
           Navigator.pushReplacementNamed(context, '/loginsignupscreen');
         }else{
           Navigator.pushReplacementNamed(context, '/homescreen');

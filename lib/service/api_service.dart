@@ -61,4 +61,34 @@ class ApiService {
     return extractData;
   }
 
+  Future<dynamic> changeCurrency(String id,String currency) async {
+    var map = new Map<String, dynamic>();
+    map['id'] = id;
+    map['currency'] = currency;
+
+    var response = await post(Uri.parse(Constans.api + "user/change_currency"), body: json.encode(map),headers:{"content-type":"application/json"});
+
+    return response;
+  }
+
+  Future<dynamic> change2fa(String id,bool isActive) async {
+    var map = new Map<String, dynamic>();
+    map['_id'] = id;
+    map['isActive'] = isActive;
+
+    var response = await post(Uri.parse(Constans.api + "user/change2fa"), body: json.encode(map),headers:{"content-type":"application/json"});
+
+
+    return response;
+  }
+
+
+  Future<dynamic> otp(var otp,String token) async {
+    var map = new Map<String, dynamic>();
+    map['code'] = otp;
+    var response = await post(Uri.parse(Constans.api + "twofacode/${token}"), body: json.encode(map),headers:{"content-type":"application/json"});
+    return response;
+  }
+
+
 }

@@ -5,6 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:ultranote_infinity/model/CurrentUser.dart';
+import 'package:ultranote_infinity/screen/otp_screen.dart';
 import 'package:ultranote_infinity/service/api_service.dart';
 import 'package:ultranote_infinity/utils/UserLocalStore.dart';
 import 'package:ultranote_infinity/utils/utils.dart';
@@ -131,11 +132,22 @@ class _LoginScreenState extends State<LoginScreen> {
       if(value.statusCode==200){
 
         print('name  ${extractData.toString()}');
-        CurrentUser currentUser = new CurrentUser(extractData['user']['firstName'].toString(),extractData['user']['lastName'].toString(),extractData['user']['mail'].toString(),extractData['user']['phone'].toString(),extractData['user']['two_fact_auth'].toString(),extractData['user']['isActive'].toString(),extractData['user']['isWalletCreated'].toString(),extractData['user']['currency'].toString(),extractData['user']['id'].toString(),extractData['token'].toString(),pass);
-        UserLocalStore userLocalStore = new UserLocalStore();
-        userLocalStore.storeUserData(currentUser);
-        showSnackBar(context,extractData['message']);
-        Navigator.of(context).pushNamedAndRemoveUntil('/homescreen', (Route<dynamic> route) => false);
+
+        if(extractData['user']['two_fact_auth']==true){
+          showSnackBar(context,extractData['message']);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => OTPScreen(pass,extractData['token'].toString()),
+              ));
+        }else{
+          CurrentUser currentUser = new CurrentUser(extractData['user']['firstName'].toString(),extractData['user']['lastName'].toString(),extractData['user']['mail'].toString(),extractData['user']['phone'].toString(),extractData['user']['two_fact_auth'].toString(),extractData['user']['isActive'].toString(),extractData['user']['isWalletCreated'].toString(),extractData['user']['currency'].toString(),extractData['user']['id'].toString(),extractData['token'].toString(),pass);
+          UserLocalStore userLocalStore = new UserLocalStore();
+          userLocalStore.storeUserData(currentUser);
+          showSnackBar(context,extractData['message']);
+          Navigator.of(context).pushNamedAndRemoveUntil('/homescreen', (Route<dynamic> route) => false);
+        }
+
       }else{
         showSnackBar(context,extractData['message']);
       }

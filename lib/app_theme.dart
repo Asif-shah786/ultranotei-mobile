@@ -99,6 +99,12 @@ class CustomAppTheme {
       color: pink
   );
 
+  static const TextStyle settingText=TextStyle(
+      fontWeight: FontWeight.w700,
+      fontSize: 22,
+      color: Colors.white
+  );
+
 
 
 
