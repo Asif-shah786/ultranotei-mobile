@@ -1,23 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ultranote_infinity/utils/utils.dart';
 
 import '../app_theme.dart';
 
-class ActivityLog extends StatefulWidget {
+class WalletCard extends StatefulWidget {
 
   String note;
   String ip;
   String time;
 
 
-  ActivityLog(this.note, this.ip, this.time);
+  WalletCard(this.note, this.ip, this.time);
 
   @override
-  State<ActivityLog> createState() => _ActivityLogState();
+  State<WalletCard> createState() => _WalletCardState();
 }
 
-class _ActivityLogState extends State<ActivityLog> {
+class _WalletCardState extends State<WalletCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -36,9 +35,27 @@ class _ActivityLogState extends State<ActivityLog> {
             SizedBox(
               height: 8,
             ),
-            Text(
-              'IP : ${widget.ip}',
-              style: CustomAppTheme.smallWhiteText,
+
+            Row(
+              children: [
+                Container(
+                  width: 19,
+                  height: 18,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/icon/grey.png"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  'Balance : ${widget.ip}',
+                  style: CustomAppTheme.smallWhiteText,
+                ),
+              ],
             ),
             SizedBox(
               height: 5,
@@ -47,7 +64,7 @@ class _ActivityLogState extends State<ActivityLog> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
-                  parseTime(widget.time),
+                  widget.time,
                   style: CustomAppTheme.smallGreyText,
                   textAlign: TextAlign.end,
                 ),

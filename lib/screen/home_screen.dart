@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ultranote_infinity/bottom_navigation_view/bottom_bar_view.dart';
-import 'package:ultranote_infinity/tab/notification_tab.dart';
+import 'package:ultranote_infinity/tab/message_tab.dart';
 import 'package:ultranote_infinity/tab/wallet_tab.dart';
 import 'package:ultranote_infinity/tab/profile_tab.dart';
 import 'package:ultranote_infinity/tab/dashboard_tab.dart';
@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin 
 
     animationController = AnimationController(
         duration: const Duration(milliseconds: 600), vsync: this);
-    tabBody = WalletTab(animationController: animationController);
+    tabBody = DashboardTab(animationController: animationController);
     super.initState();
   }
 
@@ -112,21 +112,7 @@ class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin 
           },
           changeIndex: (int index) {
 
-            print('ak addddd******* ${index}');
             if (index == 0) {
-              animationController?.reverse().then<dynamic>((data) {
-                if (!mounted) {
-                  print('ak addddd******* not mount');
-                  return;
-                }
-                print('ak addddd*******-----');
-                setState(() {
-                  print('ak addddd*******  set');
-                  tabBody =
-                      WalletTab(animationController: animationController);
-                });
-              });
-            } else if (index == 1) {
               animationController?.reverse().then<dynamic>((data) {
                 if (!mounted) {
                   return;
@@ -136,6 +122,17 @@ class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin 
                       DashboardTab(animationController: animationController);
                 });
               });
+            } else if (index == 1) {
+              animationController?.reverse().then<dynamic>((data) {
+                if (!mounted) {
+                  return;
+                }
+                setState(() {
+                  tabBody =
+                      WalletTab(animationController: animationController);
+
+                });
+              });
             }else if (index == 2) {
               animationController?.reverse().then<dynamic>((data) {
                 if (!mounted) {
@@ -143,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin 
                 }
                 setState(() {
                   tabBody =
-                      NotificationTab(animationController: animationController);
+                      MessageTab(animationController: animationController);
                 });
               });
             }else if (index == 3) {

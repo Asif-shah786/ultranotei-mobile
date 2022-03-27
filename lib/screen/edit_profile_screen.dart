@@ -101,14 +101,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               SizedBox(height: 20,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                child: IgnorePointer (child: InputAuthField("Email",emailController,TextInputType.emailAddress,false)),
+                child: InputAuthField("Email",emailController,TextInputType.emailAddress,false),
               ),
               SizedBox(height: 20,),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                child: InputAuthField("Mobile",mobileController,TextInputType.number,false),
+              Visibility(
+                visible: false,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                  child: InputAuthField("Mobile",mobileController,TextInputType.number,false),
+                ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(height: 0,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 50.0),
                 child: LoginBtn('UPDATE', (){submit();}, CustomAppTheme.btnWhiteText),
@@ -135,14 +138,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       showSnackBar(context,"Enter lastname");
       return;
     }
-    /*if(mail.isEmpty){
+    if(mail.isEmpty){
       showSnackBar(context,"Enter email");
       return;
-    }*/
-    if(phone.isEmpty){
+    }
+   /* if(phone.isEmpty){
       showSnackBar(context,"Enter mobile number");
       return;
-    }
+    }*/
 
 
     setState(() {

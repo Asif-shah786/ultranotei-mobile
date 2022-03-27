@@ -6,14 +6,12 @@ class CustomAppTheme {
   static const Color black_bar = Color(0xFF00172B);
   static const Color black_login = Color(0xFF001E39);
   static const Color grey_hint = Color(0xFF777777);
+  static const Color grey_white = Color(0xFFB6B6B6);
   static const Color purple_tab = Color(0xFF331557);
   static const Color skyBlue = Color(0xFF00F3FC);
   static const Color pink = Color(0xFFF602EB);
   static const Color transparentpurple = Color(0x3647156c);
   static const Color cardpurple = Color(0xff6c2589);
-
-
-
 
 
 
@@ -34,6 +32,15 @@ class CustomAppTheme {
   static const TextStyle smallWhiteText=TextStyle(
       fontSize: 16,
       color: Colors.white
+  );
+  static const TextStyle smallBlueUnderlineText=TextStyle(
+      fontSize: 16,
+      color: skyBlue,
+      decoration: TextDecoration.underline
+  );
+  static const TextStyle ultraWhiteText=TextStyle(
+      fontSize: 13,
+      color: Colors.white70
   );
 
   static const TextStyle btnWhiteText=TextStyle(
@@ -93,6 +100,13 @@ class CustomAppTheme {
       color: grey_hint
   );
 
+
+  static const TextStyle smallGreyBoldText=TextStyle(
+      fontSize: 16,
+      color: grey_hint,
+      fontWeight: FontWeight.bold
+  );
+
   static const TextStyle largePinkBoldText=TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.w600,
@@ -104,7 +118,11 @@ class CustomAppTheme {
       fontSize: 22,
       color: Colors.white
   );
-
+  static const TextStyle botttemSheetText=TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+      color: grey_white
+  );
 
 
 

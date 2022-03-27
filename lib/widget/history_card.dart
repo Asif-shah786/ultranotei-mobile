@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ultranote_infinity/app_theme.dart';
+import 'package:ultranote_infinity/utils/utils.dart';
 
 class HistoryCard extends StatefulWidget {
   bool isSent;
   String price;
   String note;
+  String address;
   String time;
 
-  HistoryCard(this.isSent, this.price, this.note, this.time);
+  HistoryCard(this.isSent, this.price, this.note,this.address, this.time);
 
   @override
   State<HistoryCard> createState() => _HistoryCardState();
@@ -34,6 +36,7 @@ class _HistoryCardState extends State<HistoryCard> {
                       : CustomAppTheme.smallBlueBoldText,
                 ),
                 Spacer(),
+
                 Text(
                   widget.price,
                   style: CustomAppTheme.smallWhiteBoldText,
@@ -41,9 +44,9 @@ class _HistoryCardState extends State<HistoryCard> {
               ],
             ),
             SizedBox(
-              height: 5,
+              height: 10,
             ),
-            Text(
+           /* Text(
               widget.note,
               style: CustomAppTheme.smallWhiteText,
             ),
@@ -51,8 +54,24 @@ class _HistoryCardState extends State<HistoryCard> {
               height: 5,
             ),
             Text(
-              widget.time,
-              style: CustomAppTheme.smallGreyText,
+              widget.address,
+              style: CustomAppTheme.ultraWhiteText,
+            ),
+            SizedBox(
+              height: 5,
+            ),*/
+            Row(
+              children: [
+                Text(
+                  parseTime(widget.time),
+                  style: CustomAppTheme.smallGreyText,
+                ),
+                Spacer(),
+                Text(
+                  'XUNI',
+                  style: CustomAppTheme.smallGreyBoldText,
+                ),
+              ],
             ),
           ],
         ),

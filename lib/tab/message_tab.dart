@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 
 import '../../app_theme.dart';
 
-class NotificationTab extends StatefulWidget {
-  const NotificationTab({Key? key, this.animationController}) : super(key: key);
+class MessageTab extends StatefulWidget {
+  const MessageTab({Key? key, this.animationController}) : super(key: key);
   final AnimationController? animationController;
 
   @override
-  _NotificationTabState createState() => _NotificationTabState();
+  _MessageTabState createState() => _MessageTabState();
 }
 
-class _NotificationTabState extends State<NotificationTab> {
+class _MessageTabState extends State<MessageTab> {
 
   Animation<double>? topBarAnimation;
 
@@ -166,13 +166,13 @@ class _NotificationTabState extends State<NotificationTab> {
           elevation: 0,
           centerTitle: true,
           title: Text(
-              'Notifications',
+              'Messages',
               style: CustomAppTheme.actionBarText
           ),
         ),
         backgroundColor: Colors.transparent,
         body: Center(
-          child: Text('Notification tab'),
+          child: Text('Message tab'),
         )/*Stack(
           children: <Widget>[
             getMainListViewUI(),

@@ -35,20 +35,32 @@ class _MyWalletCardState extends State<MyWalletCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("My Wallet",style: CustomAppTheme.btnWhiteText,),
-            SizedBox(height: 5,),
+            SizedBox(height: 15,),
             Row(mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text("In your wallet: ",style: CustomAppTheme.smallWhiteText,textAlign: TextAlign.center,),
+                SizedBox(width: 5,),
+                Container(
+                  width: 21,
+                  height: 20,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/icon/grey.png"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 5,),
                 Text(widget.inWallet,style: CustomAppTheme.smallBlueBoldText,textAlign: TextAlign.center,),
               ],
             ),
             SizedBox(height: 5,),
-            Row(mainAxisAlignment: MainAxisAlignment.start,
+           /* Row(mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text("You can send up to: ",style: CustomAppTheme.smallWhiteText,textAlign: TextAlign.center,),
                 Text(widget.upTo,style: CustomAppTheme.smallBlueBoldText,textAlign: TextAlign.center,),
               ],
-            ),
+            ),*/
             SizedBox(height: 45,)
           ],
         )

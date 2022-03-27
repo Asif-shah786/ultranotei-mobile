@@ -9,6 +9,7 @@ import 'package:ultranote_infinity/screen/otp_screen.dart';
 import 'package:ultranote_infinity/screen/reset_pass_screen.dart';
 import 'package:ultranote_infinity/screen/setting_screen.dart';
 import 'package:ultranote_infinity/screen/splash_screen.dart';
+import 'package:ultranote_infinity/screen/wallet_screen.dart';
 
 import 'screen/signup_screen.dart';
 
