@@ -12,33 +12,42 @@ class ApiService {
 
   Future<dynamic> signup(String firstName, String lastName, String email,String phone, String pass) async {
     var map = new Map<String, dynamic>();
-    map['firstname'] = firstName;
-    map['lastname'] = lastName;
-    map['email'] = email;
-    map['phoneno'] = phone;
-    map['pass'] = pass;
+    map['firstName'] = firstName;
+    map['lastName'] = lastName;
+    map['mail'] = email;
+    map['phone'] = phone;
+    map['password'] = pass;
     var response = await post(Uri.parse(Constans.api + "signup"), body: map);
     return response;
   }
 
   Future<dynamic> login(String email,String pass) async {
+
+    print('Entert to $email');
+    print('Entert to $pass');
     var map = new Map<String, dynamic>();
-    map['email'] = email;
+    map['mail'] = email;
     map['password'] = pass;
+
+    print('request object');
+    print(map);
     var response = await post(Uri.parse(Constans.api + "signin"), body: map);
+    print('server response object');
+    print('${response.statusCode}');
+    print('${response.body}');
     return response;
   }
 
   Future<dynamic> resetemail(String email) async {
     var map = new Map<String, dynamic>();
-    map['email'] = email;
+    map['mail'] = email;
     var response = await post(Uri.parse(Constans.api + "resetmail"), body: map);
     return response;
   }
 
   Future<dynamic> resetpass(String newpass,String token) async {
     var map = new Map<String, dynamic>();
-    map['pass'] = newpass;
+    map['password'] = newpass;
     var response = await post(Uri.parse(Constans.api + "newpassword/${token}"), body: map);
     return response;
   }
@@ -50,7 +59,8 @@ class ApiService {
     map['lastname'] = lastname;
     map['mail'] = mail;
     map['phone'] = phone;
-    var response = await post(Uri.parse(Constans.api + "update_profile"), body: map);
+    var response = await post(Uri.parse(Constans.api + "update_profile/${token}"), body: map);
+    //var response = await post(Uri.parse(Constans.api + "update_profile"), body: map);
     return response;
   }
 
@@ -68,8 +78,8 @@ class ApiService {
     var map = new Map<String, dynamic>();
     map['id'] = id;
     map['currency'] = currency;
+    var response = await post(Uri.parse(Constans.api + "user/change_currency"), body: json.encode(map),headers:{"content-type":"application/json"});
 
-    var response = await post(Uri.parse(Constans.api + "user/change_currency"));
 
     return response;
   }
@@ -78,8 +88,8 @@ class ApiService {
     var map = new Map<String, dynamic>();
     map['_id'] = id;
     map['isActive'] = isActive;
-
-    var response = await post(Uri.parse(Constans.api + "user/change2fa"), body: json.encode(map));
+    var response = await post(Uri.parse(Constans.api + "user/change2fa"), body: json.encode(map),headers:{"content-type":"application/json"});
+    // var response = await post(Uri.parse(Constans.api + "user/change2fa"), body: json.encode(map));
 
 
     return response;
@@ -96,7 +106,7 @@ class ApiService {
   Future<dynamic> mywallet(String id) async {
     var map = new Map<String, dynamic>();
     map['id'] = id;
-    var response = await post(Uri.parse(Constans.api + "wallets/my-wallet"), body: json.encode(map));
+    var response = await post(Uri.parse(Constans.api + "wallets/my-wallet"), body: json.encode(map),headers:{"content-type":"application/json"});
     var  extractData= json.decode(response.body);
     return extractData;
   }
@@ -108,14 +118,17 @@ class ApiService {
   }
 
   Future<dynamic> withdraw(String id,String sender, String recipient,String amount,String note,String paymentId) async {
+
+
     var map = new Map<String, dynamic>();
     map['id'] = id;
     map['sender'] = sender;
     map['recipient'] = recipient;
+    map['paymentId'] = paymentId;
     map['amount'] = amount;
     map['note'] = note;
-    map['paymentid'] = paymentId;
-    var response = await post(Uri.parse(Constans.api + "wallets/transactions"), body: json.encode(map));
+    var response = await post(Uri.parse(Constans.api + "wallets/transactions"), body: json.encode(map),headers:{"content-type":"application/json"});
+
     return response;
   }
 
@@ -123,7 +136,8 @@ class ApiService {
     var map = new Map<String, dynamic>();
     map['id'] = id;
     map['name'] = name;
-    var response = await post(Uri.parse(Constans.api + "wallets"), body: json.encode(map));
+    var response = await post(Uri.parse(Constans.api + "wallets"), body: json.encode(map),headers:{"content-type":"application/json"});
+    print(response.statusCode);
     return response;
   }
 
