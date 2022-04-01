@@ -53,7 +53,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
             SizedBox(height: 30,),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 35.0),
-              child: Text("UltraNote Infinity encrypted messaging and billing system with up to 100MB file transfers.",
+              child: Text("UltraNote Infinity encrypted wallet and messaging system with up to 100MB file transfers.",
                 style: CustomAppTheme.smallWhiteText,textAlign: TextAlign.center,),
             ),
             SizedBox(height: 35,),
