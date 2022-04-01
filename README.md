@@ -21,7 +21,11 @@ samples, guidance on mobile development, and a full API reference.
 
 
 ## Build signd apk with flutter 
+
 flutter clean             (for clean the project)
+
 flutter pub get           (for getting pakeges)
+
 flutter build apk         (for the apk)
+
 flutter build appbundle   (for the app bundle)
