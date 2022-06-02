@@ -13,120 +13,59 @@ class CustomAppTheme {
   static const Color transparentpurple = Color(0x3647156c);
   static const Color cardpurple = Color(0xff6c2589);
 
+  static const TextStyle actionBarText =
+      TextStyle(fontWeight: FontWeight.w400, fontSize: 18, color: Colors.white);
 
+  static const TextStyle startText =
+      TextStyle(fontWeight: FontWeight.bold, fontSize: 28, color: Colors.white);
 
+  static const TextStyle smallWhiteText =
+      TextStyle(fontSize: 16, color: Colors.white);
+  static const TextStyle smallBlueUnderlineText = TextStyle(
+      fontSize: 16, color: skyBlue, decoration: TextDecoration.underline);
+  static const TextStyle ultraWhiteText =
+      TextStyle(fontSize: 13, color: Colors.white70);
 
+  static const TextStyle btnWhiteText =
+      TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white);
 
-  static const TextStyle actionBarText=TextStyle(
-    fontWeight: FontWeight.w400,
-    fontSize: 18,
-    color: Colors.white
-  );
+  static const TextStyle btnBlackText =
+      TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black);
+  static const TextStyle btnTextStyle =
+      TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.black);
 
-  static const TextStyle startText=TextStyle(
-      fontWeight: FontWeight.bold,
-      fontSize: 28,
-      color: Colors.white
-  );
+  static const TextStyle inputHintText =
+      TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: grey_hint);
 
-  static const TextStyle smallWhiteText=TextStyle(
-      fontSize: 16,
-      color: Colors.white
-  );
-  static const TextStyle smallBlueUnderlineText=TextStyle(
-      fontSize: 16,
-      color: skyBlue,
-      decoration: TextDecoration.underline
-  );
-  static const TextStyle ultraWhiteText=TextStyle(
-      fontSize: 13,
-      color: Colors.white70
-  );
+  static const TextStyle inputHint2Text =
+      TextStyle(fontSize: 16, color: grey_hint);
 
-  static const TextStyle btnWhiteText=TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.w600,
-      color: Colors.white
-  );
+  static const TextStyle inputText =
+      TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black);
 
-  static const TextStyle btnBlackText=TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.w600,
-      color: Colors.black
-  );
+  static const TextStyle smallBlueText =
+      TextStyle(fontSize: 16, color: skyBlue);
 
-  static const TextStyle inputHintText=TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.bold,
-      color: grey_hint
-  );
+  static const TextStyle smallBlueBoldText =
+      TextStyle(fontSize: 16, color: skyBlue, fontWeight: FontWeight.bold);
 
-  static const TextStyle inputHint2Text=TextStyle(
-      fontSize: 16,
-      color: grey_hint
-  );
+  static const TextStyle smallPinkBoldText =
+      TextStyle(fontSize: 16, color: pink, fontWeight: FontWeight.bold);
 
-  static const TextStyle inputText=TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.bold,
-      color: Colors.black
-  );
+  static const TextStyle smallWhiteBoldText =
+      TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold);
 
-  static const TextStyle smallBlueText=TextStyle(
-      fontSize: 16,
-      color: skyBlue
-  );
+  static const TextStyle smallGreyText =
+      TextStyle(fontSize: 16, color: grey_hint);
 
-  static const TextStyle smallBlueBoldText=TextStyle(
-      fontSize: 16,
-      color: skyBlue,
-    fontWeight: FontWeight.bold
-  );
+  static const TextStyle smallGreyBoldText =
+      TextStyle(fontSize: 16, color: grey_hint, fontWeight: FontWeight.bold);
 
-  static const TextStyle smallPinkBoldText=TextStyle(
-      fontSize: 16,
-      color: pink,
-      fontWeight: FontWeight.bold
-  );
+  static const TextStyle largePinkBoldText =
+      TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: pink);
 
-  static const TextStyle smallWhiteBoldText=TextStyle(
-      fontSize: 16,
-      color: Colors.white,
-      fontWeight: FontWeight.bold
-  );
-
-  static const TextStyle smallGreyText=TextStyle(
-      fontSize: 16,
-      color: grey_hint
-  );
-
-
-  static const TextStyle smallGreyBoldText=TextStyle(
-      fontSize: 16,
-      color: grey_hint,
-      fontWeight: FontWeight.bold
-  );
-
-  static const TextStyle largePinkBoldText=TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.w600,
-      color: pink
-  );
-
-  static const TextStyle settingText=TextStyle(
-      fontWeight: FontWeight.w700,
-      fontSize: 22,
-      color: Colors.white
-  );
-  static const TextStyle botttemSheetText=TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.bold,
-      color: grey_white
-  );
-
-
-
-
-
-
+  static const TextStyle settingText =
+      TextStyle(fontWeight: FontWeight.w700, fontSize: 22, color: Colors.white);
+  static const TextStyle botttemSheetText =
+      TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: grey_white);
 }

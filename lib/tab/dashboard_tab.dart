@@ -34,80 +34,70 @@ class _DashboardTabState extends State<DashboardTab> {
   String uUSD = '0';
 
   bool _isInAsyncCall = false;
-  List list=[];
-  String address='';
-  bool isWalletCreated=true;
-
+  List list = [];
+  String address = '';
+  bool isWalletCreated = true;
 
   getWallets() {
     UserLocalStore userLocalStore = new UserLocalStore();
     Future<CurrentUser> cUSer = userLocalStore.getLoggedInUser();
     cUSer.then((cvalue) {
       setState(() {
-        isWalletCreated=cvalue.isWalletCreated=="true"?true:false;
-        if(isWalletCreated){
+        isWalletCreated = cvalue.isWalletCreated == "true" ? true : false;
+        if (isWalletCreated) {
           _isInAsyncCall = true;
         }
-
       });
 
-      if(isWalletCreated){
+      if (isWalletCreated) {
         ApiService.instance.mywallet(cvalue.id).then((value) {
           setState(() {
             aXUNI = value[0][0]['balance'].toString();
-            aUSD=value[2].toString();
-            uXUNI=value[1].toString();
-            uUSD=value[3].toString();
+            aUSD = value[2].toString();
+            uXUNI = value[1].toString();
+            uUSD = value[3].toString();
             print(list.length);
 
             setState(() {
-              address=value[0][0]['address'].toString();
+              address = value[0][0]['address'].toString();
               getTransactions();
             });
-
           });
         });
-      }else{
-
-      }
-
+      } else {}
     });
   }
 
-  getTransactions(){
+  getTransactions() {
     setState(() {
-      _isInAsyncCall=true;
+      _isInAsyncCall = true;
     });
     ApiService.instance.transactions(address).then((value) {
+      print('transaction Response HAseeb${value.toString()}');
 
-      List depositList=value['deposit'];
-      List withdrawList=value['withdraw'];
+      List depositList = value['deposit'];
+      List withdrawList = value['withdraw'];
 
-      print('deposit ${depositList.length.toString()}   withdraw  ${withdrawList.length.toString()} ');
+      print(
+          'deposit ${depositList.length.toString()}   withdraw  ${withdrawList.length.toString()} ');
 
       list.addAll(depositList);
       list.addAll(withdrawList);
 
-
       setState(() {
-
-
-        list.sort((a,b) {
+        list.sort((a, b) {
           var adate = a['updatedAt'];
           var bdate = b['updatedAt'];
           return bdate.compareTo(adate);
         });
         print(list.length);
-        _isInAsyncCall=false;
+        _isInAsyncCall = false;
       });
-
-
     });
   }
 
   @override
   void initState() {
-
     getWallets();
 
     topBarAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
@@ -161,19 +151,44 @@ class _DashboardTabState extends State<DashboardTab> {
                   double.parse(aUSD).toStringAsFixed(6),
                   double.parse(uXUNI).toStringAsFixed(6),
                   double.parse(uUSD).toStringAsFixed(6)),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               Text('Recent Transaction', style: CustomAppTheme.actionBarText),
               Container(
                 child: Expanded(
                   child: ListView.builder(
                     itemCount: list.length,
                     itemBuilder: (context, i) => Padding(
-                      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                       child: GestureDetector(
-                          onTap: (){
-                            openBottomSheet(address==list[i]['senderAdress']?true:false, double.parse((double.parse(list[i]['amount'].toString())/1000000).toString()).toStringAsFixed(6), list[i]['updatedAt'], list[i]['note'],list[i]['hash']);
+                          onTap: () {
+                            openBottomSheet(
+                                address == list[i]['senderAdress']
+                                    ? true
+                                    : false,
+                                double.parse((double.parse(
+                                                list[i]['amount'].toString()) /
+                                            1000000)
+                                        .toString())
+                                    .toStringAsFixed(6),
+                                list[i]['updatedAt'],
+                                list[i]['note'],
+                                list[i]['hash']);
                           },
-                          child: HistoryCard(address==list[i]['senderAdress']?true:false,double.parse((double.parse(list[i]['amount'].toString())/1000000).toString()).toStringAsFixed(6),'Hash : ${list[i]['hash']}',address==list[i]['senderAdress']?'Recipient Address : ${list[i]['recipientAdress']}':'Sender Address : ${list[i]['senderAdress']}',list[i]['updatedAt'])),
+                          child: HistoryCard(
+                              address == list[i]['senderAdress'] ? true : false,
+                              double.parse((double.parse(
+                                              list[i]['amount'].toString()) /
+                                          1000000)
+                                      .toString())
+                                  .toStringAsFixed(6),
+                              'Hash : ${list[i]['hash']}',
+                              address == list[i]['senderAdress']
+                                  ? 'Recipient Address : ${list[i]['recipientAdress']}'
+                                  : 'Sender Address : ${list[i]['senderAdress']}',
+                              list[i]['updatedAt'])),
                     ),
                   ),
                 ),
@@ -234,7 +249,8 @@ class _DashboardTabState extends State<DashboardTab> {
     );
   }
 
-  openBottomSheet(bool isSent,String amount, String time, String desc,String hash) {
+  openBottomSheet(
+      bool isSent, String amount, String time, String desc, String hash) {
     showModalBottomSheet(
         isScrollControlled: true,
         context: context,
@@ -245,7 +261,7 @@ class _DashboardTabState extends State<DashboardTab> {
         ),
         builder: (context) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -254,31 +270,68 @@ class _DashboardTabState extends State<DashboardTab> {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Text('Transaction Details',style: CustomAppTheme.settingText,textAlign: TextAlign.center,),
-                      SizedBox(height: 5,),
-                      Text('Do you want to see explorer links?',style: CustomAppTheme.smallWhiteText,),
-                      SizedBox(height: 5,),
+                      Text(
+                        'Transaction Details',
+                        style: CustomAppTheme.settingText,
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        'Do you want to see explorer links?',
+                        style: CustomAppTheme.smallWhiteText,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
                       InkWell(
-                          onTap: (){
+                          onTap: () {
                             openBrowser(hash);
                           },
-                          child: Text('View Details',style: CustomAppTheme.smallBlueUnderlineText,)),
+                          child: Text(
+                            'View Details',
+                            style: CustomAppTheme.smallBlueUnderlineText,
+                          )),
                     ],
                   ),
                 ),
-
-                SizedBox(height: 10,),
-                Container(height: 1,width: double.infinity,color: CustomAppTheme.grey_hint,),
-                SizedBox(height: 10,),
-                Text(isSent?'Type : Send':'Type : Received',style: CustomAppTheme.botttemSheetText,),
-                SizedBox(height: 5,),
-                Text('Amount : ${amount} XUNI',style: CustomAppTheme.botttemSheetText,),
-                SizedBox(height: 5,),
-                Text('Time : ${parseTime(time)}',style: CustomAppTheme.botttemSheetText,),
-                SizedBox(height: 5,),
-                Text('Description : ${desc}',style: CustomAppTheme.botttemSheetText,),
-
-
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  height: 1,
+                  width: double.infinity,
+                  color: CustomAppTheme.grey_hint,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  isSent ? 'Type : Send' : 'Type : Received',
+                  style: CustomAppTheme.botttemSheetText,
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  'Amount : ${amount} XUNI',
+                  style: CustomAppTheme.botttemSheetText,
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  'Time : ${parseTime(time)}',
+                  style: CustomAppTheme.botttemSheetText,
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  'Description : ${desc}',
+                  style: CustomAppTheme.botttemSheetText,
+                ),
               ],
             ),
           );
@@ -286,12 +339,11 @@ class _DashboardTabState extends State<DashboardTab> {
   }
 
   openBrowser(String hash) async {
-    String url ='https://explorer.ultranote.org/index.html?hash=${hash}';
+    String url = 'https://explorer.ultranote.org/index.html?hash=${hash}';
     if (await canLaunch(url))
       await launch(url);
     else
       // can't launch url, there is some error
       throw "Could not launch $url";
   }
-
 }

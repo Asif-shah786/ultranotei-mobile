@@ -1,8 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,7 +17,7 @@ class _ScanQRCodeScreenState extends State<ScanQRCodeScreen> {
   Barcode? result;
   QRViewController? controller;
 
-  bool isFlash=false;
+  bool isFlash = false;
 
   @override
   void initState() {
@@ -44,56 +41,58 @@ class _ScanQRCodeScreenState extends State<ScanQRCodeScreen> {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          Expanded(flex: 1,
-              child: Stack(
-                  children:
-                  [
-                    _buildQrView(context),
-                    Row(
+          Expanded(
+              flex: 1,
+              child: Stack(children: [
+                _buildQrView(context),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            FutureBuilder(
-                              future: controller?.getFlashStatus(),
-                              builder: (context, snapshot) {
+                        FutureBuilder(
+                          future: controller?.getFlashStatus(),
+                          builder: (context, snapshot) {
+                            return Container(
+                              height: 40,
+                              width: 40,
+                              margin: EdgeInsets.all(40),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20))),
+                              child: IconButton(
+                                icon: Icon(
+                                  isFlash
+                                      ? Icons.flash_off_sharp
+                                      : Icons.flash_on_sharp,
+                                  color: Colors.black54,
+                                ),
+                                onPressed: () async {
+                                  await controller?.toggleFlash();
+                                  setState(() {
+                                    if (snapshot.data.toString() == 'true') {
+                                      print('in if');
+                                      isFlash = false;
+                                    } else {
+                                      isFlash = true;
+                                      print('in else');
+                                    }
 
-                                return Container(
-                                  height: 40,
-                                  width: 40,
-                                  margin: EdgeInsets.all(40),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.all(Radius.circular(20))
-                                  ),
-                                  child: IconButton(
-                                    icon: Icon(isFlash?Icons.flash_off_sharp:Icons.flash_on_sharp,color: Colors.black54,),
-                                    onPressed: () async {
-                                      await controller?.toggleFlash();
-                                      setState(()  {
-
-                                        if(snapshot.data.toString()=='true'){
-                                          print('in if');
-                                          isFlash=false;
-                                        }else{
-                                          isFlash=true;
-                                          print('in else');
-                                        }
-
-                                        print('flash_________________________${snapshot.data}    ${isFlash}');
-                                      });
-                                    },
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
+                                    print(
+                                        'flash_________________________${snapshot.data}    ${isFlash}');
+                                  });
+                                },
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),
-                  ]
-              )),
+                  ],
+                ),
+              ])),
           /*Expanded(
             flex: 1,
             child: FittedBox(
@@ -181,7 +180,8 @@ class _ScanQRCodeScreenState extends State<ScanQRCodeScreen> {
 
   Widget _buildQrView(BuildContext context) {
     // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
-    var scanArea = (MediaQuery.of(context).size.width < 300 || MediaQuery.of(context).size.height < 300)
+    var scanArea = (MediaQuery.of(context).size.width < 300 ||
+            MediaQuery.of(context).size.height < 300)
         ? 150.0
         : 250.0;
     // To ensure the Scanner view is properly sizes after rotation
@@ -218,7 +218,6 @@ class _ScanQRCodeScreenState extends State<ScanQRCodeScreen> {
         print('amount  ${params['am'].toString()}');
 
         storeAddress(result!.code.toString());
-        //showSnackBar('result get');
         Navigator.pop(context, true);
       });
     });

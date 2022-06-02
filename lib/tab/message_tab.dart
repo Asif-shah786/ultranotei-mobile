@@ -1,5 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ultranote_infinity/model/CurrentUser.dart';
+import 'package:ultranote_infinity/screen/message/all_messages_screen.dart';
+import 'package:ultranote_infinity/screen/message/send_message_screen.dart';
+import 'package:ultranote_infinity/service/api_service.dart';
+import 'package:ultranote_infinity/utils/UserLocalStore.dart';
 
 import '../../app_theme.dart';
 
@@ -12,7 +17,6 @@ class MessageTab extends StatefulWidget {
 }
 
 class _MessageTabState extends State<MessageTab> {
-
   Animation<double>? topBarAnimation;
 
   List<Widget> listViews = <Widget>[];
@@ -157,34 +161,103 @@ class _MessageTabState extends State<MessageTab> {
     return true;
   }
 
+  var height, width;
   @override
   Widget build(BuildContext context) {
+    height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
+
     return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/back/loginpage_back.png"),
+          fit: BoxFit.cover,
+        ),
+      ),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: CustomAppTheme.black_bar,
           elevation: 0,
           centerTitle: true,
-          title: Text(
-              'Messages',
-              style: CustomAppTheme.actionBarText
-          ),
+          title: Text('Messages', style: CustomAppTheme.actionBarText),
         ),
         backgroundColor: Colors.transparent,
-        body: Center(
-          child: Text('Message tab'),
-        )/*Stack(
-          children: <Widget>[
-            getMainListViewUI(),
-            //getAppBarUI(),
-            SizedBox(
-              height: MediaQuery.of(context).padding.bottom,
-            )
-          ],
-        )*/,
+        body: DefaultTabController(
+          length: 2,
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              toolbarHeight: 40,
+              elevation: 0,
+              automaticallyImplyLeading: false,
+              title: Container(
+                padding: new EdgeInsets.fromLTRB(0, 5, 0, 0),
+                color: CustomAppTheme.purple_tab,
+                child: TabBar(
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  indicatorColor: CustomAppTheme.skyBlue,
+                  indicator: UnderlineTabIndicator(
+                    borderSide:
+                        BorderSide(color: CustomAppTheme.skyBlue, width: 3.0),
+                    insets: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 5.0),
+                  ),
+                  labelColor: CustomAppTheme.skyBlue,
+                  unselectedLabelColor: Colors.white,
+                  tabs: [
+                    Tab(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.message,
+                            size: 14,
+                          ),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Text(
+                            "Message",
+                            style: TextStyle(fontSize: 14),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Tab(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.message,
+                          ),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Text(
+                            "Send Message",
+                            style: TextStyle(fontSize: 14),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              backgroundColor: CustomAppTheme.purple_tab,
+            ),
+            body: TabBarView(
+              children: [
+                AllMessagesScreen(),
+                SendMessageScreen(),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
+
   Widget getMainListViewUI() {
     return FutureBuilder<bool>(
       future: getData(),

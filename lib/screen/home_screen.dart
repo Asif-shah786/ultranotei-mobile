@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:ultranote_infinity/bottom_navigation_view/bottom_bar_view.dart';
+import 'package:ultranote_infinity/screen/contacts/contact_controller.dart';
 import 'package:ultranote_infinity/tab/message_tab.dart';
 import 'package:ultranote_infinity/tab/wallet_tab.dart';
 import 'package:ultranote_infinity/tab/profile_tab.dart';
@@ -17,16 +20,12 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin  {
-
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   AnimationController? animationController;
 
   List<TabIconData> tabIconsList = TabIconData.tabIconsList;
 
-  Widget tabBody = Container(
-
-  );
-
+  Widget tabBody = Container();
 
   @override
   void initState() {
@@ -49,13 +48,10 @@ class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin 
 
   @override
   Widget build(BuildContext context) {
-
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor:  Colors.white
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.white));
 
     return Container(
-
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage("assets/back/loginpage_back.png"),
@@ -66,7 +62,6 @@ class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin 
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             toolbarHeight: 0,
-
           ),
           body: Container(
             child: Scaffold(
@@ -87,8 +82,7 @@ class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin 
                 },
               ),
             ),
-          )
-      ),
+          )),
     );
   }
 
@@ -107,11 +101,10 @@ class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin 
           tabIconsList: tabIconsList,
           addClick: () {
             print('center click');
-           /* Navigator.push(context,
+            /* Navigator.push(context,
                 MaterialPageRoute(builder: (context) => Post1()));*/
           },
           changeIndex: (int index) {
-
             if (index == 0) {
               animationController?.reverse().then<dynamic>((data) {
                 if (!mounted) {
@@ -128,12 +121,10 @@ class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin 
                   return;
                 }
                 setState(() {
-                  tabBody =
-                      WalletTab(animationController: animationController);
-
+                  tabBody = WalletTab(animationController: animationController);
                 });
               });
-            }else if (index == 2) {
+            } else if (index == 2) {
               animationController?.reverse().then<dynamic>((data) {
                 if (!mounted) {
                   return;
@@ -143,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin 
                       MessageTab(animationController: animationController);
                 });
               });
-            }else if (index == 3) {
+            } else if (index == 3) {
               animationController?.reverse().then<dynamic>((data) {
                 if (!mounted) {
                   return;
@@ -159,5 +150,4 @@ class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin 
       ],
     );
   }
-
 }

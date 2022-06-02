@@ -17,17 +17,15 @@ class ProfileTab extends StatefulWidget {
 }
 
 class _ProfileTabState extends State<ProfileTab> {
-
   Animation<double>? topBarAnimation;
 
   List<Widget> listViews = <Widget>[];
   final ScrollController scrollController = ScrollController();
   double topBarOpacity = 0.0;
-  String name='';
+  String name = '';
 
   @override
   void initState() {
-
     getUser();
 
     topBarAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
@@ -61,13 +59,13 @@ class _ProfileTabState extends State<ProfileTab> {
     super.initState();
   }
 
-  getUser(){
+  getUser() {
     UserLocalStore userLocalStore = new UserLocalStore();
     Future<CurrentUser> cUSer = userLocalStore.getLoggedInUser();
     cUSer.then((value) {
-     setState(() {
-       name='${value.firstName} ${value.lastName}';
-     });
+      setState(() {
+        name = '${value.firstName} ${value.lastName}';
+      });
     });
   }
 
@@ -176,26 +174,30 @@ class _ProfileTabState extends State<ProfileTab> {
     return true;
   }
 
+  var height, width;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
+    height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
+    return Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           backgroundColor: CustomAppTheme.black_bar,
           elevation: 0,
           centerTitle: true,
-          title: Text(
-              'My Profile',
-              style: CustomAppTheme.actionBarText
-          ),
+          title: Text('My Profile', style: CustomAppTheme.actionBarText),
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: Column(
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+          child: Container(
+            height: height,
+            width: width,
+            child: ListView(
               children: [
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -211,25 +213,60 @@ class _ProfileTabState extends State<ProfileTab> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20,),
-                Text("${name}",
-                  style: CustomAppTheme.actionBarText,),
-                SizedBox(height: 20,),
-                LoginBtn("Edit Profile", (){editProfile();}, CustomAppTheme.btnWhiteText),
-                SizedBox(height: 20,),
-                LoginBtn("Reset Password", (){resetPass();}, CustomAppTheme.btnWhiteText),
-                SizedBox(height: 20,),
-                LoginBtn("Activity Log", (){activityLog();}, CustomAppTheme.btnWhiteText),
-                SizedBox(height: 20,),
-                LoginBtn("Settings", (){setting();}, CustomAppTheme.btnWhiteText),
-                SizedBox(height: 20,),
-                SignupBtn("Log out", (){signout();}, CustomAppTheme.btnBlackText),
+                SizedBox(
+                  height: 20,
+                ),
+                Center(
+                  child: Text(
+                    "${name}",
+                    style: CustomAppTheme.actionBarText,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                LoginBtn("Edit Profile", () {
+                  editProfile();
+                }, CustomAppTheme.btnWhiteText),
+                SizedBox(
+                  height: 20,
+                ),
+                LoginBtn("Address Book", () {
+                  contacts();
+                }, CustomAppTheme.btnWhiteText),
+                SizedBox(
+                  height: 20,
+                ),
+                LoginBtn("Reset Password", () {
+                  resetPass();
+                }, CustomAppTheme.btnWhiteText),
+                SizedBox(
+                  height: 20,
+                ),
+                LoginBtn("Activity Log", () {
+                  activityLog();
+                }, CustomAppTheme.btnWhiteText),
+                SizedBox(
+                  height: 20,
+                ),
+                LoginBtn("Settings", () {
+                  setting();
+                }, CustomAppTheme.btnWhiteText),
+                SizedBox(
+                  height: 20,
+                ),
+                SignupBtn("Log out", () {
+                  signout();
+                }, CustomAppTheme.btnBlackText),
+                SizedBox(
+                  height: height * 0.2,
+                ),
               ],
             ),
           ),
-        )),
-    );
+        ));
   }
+
   Widget getMainListViewUI() {
     return FutureBuilder<bool>(
       future: getData(),
@@ -257,34 +294,37 @@ class _ProfileTabState extends State<ProfileTab> {
     );
   }
 
-  editProfile(){
+  editProfile() {
     print('edit profile');
     Navigator.pushNamed(context, '/editprofilescreen');
   }
 
-  resetPass(){
+  contacts() {
+    print('contact Screen');
+    Navigator.pushNamed(context, '/contactscreen');
+  }
+
+  resetPass() {
     print('resetPass');
     Navigator.pushNamed(context, '/resetpassscreen');
   }
 
-  activityLog(){
+  activityLog() {
     print('activity log');
     Navigator.pushNamed(context, '/activitylogscreen');
-
   }
 
-  setting(){
+  setting() {
     print('setting');
     Navigator.pushNamed(context, '/setingscreen');
-
   }
 
-  signout(){
+  signout() {
     print('log out');
 
     UserLocalStore userLocalStore = new UserLocalStore();
     userLocalStore.clearUserData();
-    showSnackBar(context,"Log out successfully");
+    showSnackBar(context, "Log out successfully");
     Navigator.pushReplacementNamed(context, '/loginsignupscreen');
   }
 }
