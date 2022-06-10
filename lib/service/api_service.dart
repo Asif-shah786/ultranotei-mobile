@@ -210,4 +210,19 @@ class ApiService {
     print(response.statusCode);
     return response;
   }
+
+  Future<dynamic> downlodAttachment(
+      var transactionId, var attachment, encryptionKey) async {
+    var map = new Map<String, dynamic>();
+    map['attachment'] = attachment;
+    map['encryptionKey'] = encryptionKey;
+    map['transactionId'] = transactionId;
+    var response = await post(Uri.parse(Constans.api + "/wallets/attachment"),
+        body: json.encode(map),
+        headers: {
+          "content-type": "application/json",
+        });
+
+    return response.bodyBytes;
+  }
 }

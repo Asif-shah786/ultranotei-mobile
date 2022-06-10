@@ -53,6 +53,7 @@ dependencies:
   buffer:
   binary_codec:
   provider:
+  permission_handler:
 
   
   

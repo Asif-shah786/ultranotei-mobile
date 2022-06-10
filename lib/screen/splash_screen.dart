@@ -1,9 +1,10 @@
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:ultranote_infinity/Constants.dart';
 import 'package:ultranote_infinity/app_theme.dart';
 import 'package:ultranote_infinity/model/CurrentUser.dart';
 import 'package:ultranote_infinity/screen/contacts/contact_controller.dart';
@@ -23,6 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Get.put(ContactController());
+    _createFolder();
     // TODO: implement initState
     new Future.delayed(const Duration(milliseconds: 100), () {
       UserLocalStore userLocalStore = new UserLocalStore();
@@ -38,6 +40,26 @@ class _SplashScreenState extends State<SplashScreen> {
     });
 
     super.initState();
+  }
+
+  Future<String> _createFolder() async {
+    final folderName = 'ultranotei';
+    final path = Directory("storage/emulated/0/$folderName/");
+    File("$path/savedSettings.json");
+
+    var status = await Permission.storage.status;
+    if (!status.isGranted) {
+      await Permission.storage.request();
+    }
+    if ((await path.exists())) {
+      Staticpath = path.path;
+      return path.path;
+    } else {
+      path.create();
+      print("folder  created................");
+      Staticpath = path.path;
+      return path.path;
+    }
   }
 
   loginApi(String email, String pass) {

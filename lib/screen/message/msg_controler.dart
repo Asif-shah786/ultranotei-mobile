@@ -20,6 +20,7 @@ import 'package:ultranote_infinity/utils/utils.dart';
 
 class MessageController extends GetxController {
   static MessageController get to => Get.find();
+  bool loadData = false;
   String replyAddress = '';
   double totalbits = 0;
   double fileHeight = 0.0;
@@ -37,6 +38,12 @@ class MessageController extends GetxController {
   List<deo.MultipartFile> formdataList = [];
   // List<TextEditingController> filesNameList = [];
   File? testingImage;
+
+  loadDataScreen(bool value) {
+    loadData = value;
+    update();
+  }
+
   clearData() {
     filesList.clear();
     resipentList.clear();
