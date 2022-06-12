@@ -66,7 +66,7 @@ class _SendScreenState extends State<SendScreen>
                     Row(
                       children: [
                         Expanded(
-                            child: InputAddressField("Enter XUIN address",
+                            child: InputAddressField("Enter XUNI address",
                                 addressController, TextInputType.name, false)),
                         IconButton(
                           padding: EdgeInsets.all(4),
@@ -218,7 +218,7 @@ class _SendScreenState extends State<SendScreen>
     String note = noteController.text.toString().trim();
 
     if (recepientAddress.isEmpty) {
-      showSnackBar(context, "Enter XUIN address");
+      showSnackBar(context, "Enter XUNI address");
       return;
     }
 
