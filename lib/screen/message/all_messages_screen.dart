@@ -17,6 +17,7 @@ import 'package:ultranote_infinity/screen/message/get_msglist_model.dart';
 import 'package:ultranote_infinity/screen/message/msg_controler.dart';
 import 'package:ultranote_infinity/service/api_service.dart';
 import 'package:ultranote_infinity/utils/UserLocalStore.dart';
+import 'package:ultranote_infinity/utils/utils.dart';
 
 class AllMessagesScreen extends StatefulWidget {
   const AllMessagesScreen({Key? key}) : super(key: key);
@@ -401,6 +402,8 @@ class _AllMessagesState extends State<AllMessagesScreen> {
                                               "$Staticpath/${model.headers![1].value}.zip");
                                           newfile.writeAsBytes(value);
                                           msgObj.loadDataScreen(false);
+
+                                          showSnackBar(context, "Downloded ${model.headers![1].value}");
                                         });
                                       },
                                       child: Card(
