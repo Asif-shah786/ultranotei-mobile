@@ -42,23 +42,35 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
-  Future<String> _createFolder() async {
-    final folderName = 'ultranotei';
-    final path = Directory("storage/emulated/0/$folderName/");
-    File("$path/savedSettings.json");
-
-    var status = await Permission.storage.status;
-    if (!status.isGranted) {
-      await Permission.storage.request();
+  Future _createFolder() async {
+    await Permission.manageExternalStorage.request();
+    var status = await Permission.manageExternalStorage.status;
+    if (status.isDenied) {
+      return;
     }
-    if ((await path.exists())) {
-      Staticpath = path.path;
-      return path.path;
-    } else {
-      path.create();
-      print("folder  created................");
-      Staticpath = path.path;
-      return path.path;
+
+    if (await Permission.storage.isRestricted) {
+      return;
+    }
+    if (status.isGranted) {
+      final folderName = 'ultranotei';
+      final path = Directory("storage/emulated/0/$folderName/");
+      File("$path/savedSettings.json");
+
+      var status = await Permission.storage.status;
+      if (!status.isGranted) {
+        await Permission.storage.request();
+      }
+      if ((await path.exists())) {
+        Staticpath = path.path;
+        print("folder  PAth.............$Staticpath...");
+        return path.path;
+      } else {
+        path.create();
+        print("folder  created................");
+        Staticpath = path.path;
+        return path.path;
+      }
     }
   }
 

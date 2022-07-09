@@ -54,6 +54,8 @@ dependencies:
   binary_codec:
   provider:
   permission_handler:
+  slider_captcha: 0.0.7
+  socket_io_client:
 
   
   

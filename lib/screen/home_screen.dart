@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:ultranote_infinity/bottom_navigation_view/bottom_bar_view.dart';
 import 'package:ultranote_infinity/screen/contacts/contact_controller.dart';
+import 'package:ultranote_infinity/service/socket_service.dart';
 import 'package:ultranote_infinity/tab/message_tab.dart';
 import 'package:ultranote_infinity/tab/wallet_tab.dart';
 import 'package:ultranote_infinity/tab/profile_tab.dart';
@@ -34,10 +35,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     });
     tabIconsList[0].isSelected = true;
 
+    SocketService.connect();
     animationController = AnimationController(
         duration: const Duration(milliseconds: 600), vsync: this);
     tabBody = DashboardTab(animationController: animationController);
     super.initState();
+    SocketService.OnConnect((p0) => {print("hello socket " + p0)});
   }
 
   @override

@@ -393,6 +393,10 @@ class _AllMessagesState extends State<AllMessagesScreen> {
                                                 model.headers![1].value,
                                                 model.headers![2].value)
                                             .then((value) async {
+// String dir = (await getApplicationDocumentsDirectory()).path;2580
+//     File file = new File('$dir/$filename');
+//     await file.writeAsBytes(bytes);
+
                                           File newfile = File(
                                               "$Staticpath/${model.headers![1].value}.zip");
                                           newfile.writeAsBytes(value);
