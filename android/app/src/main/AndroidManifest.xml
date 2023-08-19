@@ -4,13 +4,18 @@
     <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="33" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="33"  />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"
+        android:maxSdkVersion="33" />
+    <uses-permission android:name="android.permission. ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION" />
     
     <application
         android:label="UltraNote Infinity"
         android:name="${applicationName}"
+
         android:requestLegacyExternalStorage="true"
         android:icon="@mipmap/launcher_icon">
 
