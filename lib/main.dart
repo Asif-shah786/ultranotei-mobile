@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:ultranote_infinity/screen/activity_log_screen.dart';
 import 'package:ultranote_infinity/screen/contacts/contact_screen.dart';
@@ -13,6 +14,7 @@ import 'package:ultranote_infinity/screen/splash_screen.dart';
 import 'screen/signup_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     title: "",
