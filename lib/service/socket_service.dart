@@ -17,15 +17,20 @@ class SocketService {
       try {
         socket = IO.io(
             'https://cloud.ultranote.org',
-            builder.setPath("/api/socket").disableAutoConnect().setExtraHeaders(
-                {"Authorization": "Bearer ${value.token}"}).build());
+            builder
+                .setPath("/api/socket")
+                .setTransports(['websocket'])
+                .disableAutoConnect()
+                .setExtraHeaders({"Authorization": "Bearer ${value.token}"})
+                .build());
         socket.connect();
-        Future.delayed(Duration(seconds: 5), () {
+        Future.delayed(Duration(seconds: 0), () {
+          print("hello socket " + socket.connected.toString());
           print("hello socket " + socket.id.toString());
         });
         print("hello socket " + socket.connected.toString());
       } catch (e) {
-        print('hello socket' + e.toString());
+        print('hello socket exception' + e.toString());
       }
     });
   }

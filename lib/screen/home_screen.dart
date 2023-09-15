@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:ultranote_infinity/bottom_navigation_view/bottom_bar_view.dart';
 import 'package:ultranote_infinity/screen/chat/user_chat_screen.dart';
+import 'package:ultranote_infinity/screen/chat/user_home_controller.dart';
 import 'package:ultranote_infinity/screen/contacts/contact_controller.dart';
 import 'package:ultranote_infinity/service/socket_service.dart';
 import 'package:ultranote_infinity/tab/message_tab.dart';
@@ -31,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    Get.put(UserChatController());
     tabIconsList.forEach((TabIconData tab) {
       tab.isSelected = false;
     });

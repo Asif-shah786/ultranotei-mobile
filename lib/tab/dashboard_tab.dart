@@ -160,7 +160,7 @@ class _DashboardTabState extends State<DashboardTab> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Wellcome Dear',
+                            Text('Wellcome',
                                 style: CustomAppTheme.actionBarText),
                             SizedBox(
                               height: 15,

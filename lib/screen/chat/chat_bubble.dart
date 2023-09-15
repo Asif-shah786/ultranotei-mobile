@@ -3,21 +3,28 @@ import 'dart:math' as math;
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:ultranote_infinity/screen/chat/user_home_controller.dart';
 import 'package:ultranote_infinity/screen/chat/user_msg_model.dart';
 
 class ChatBubble extends StatelessWidget {
   Size size;
   UserMsgModel data;
   String receiverid;
+  bool isAdmin;
+
+  int index;
   ChatBubble({
     required this.data,
     required this.size,
     required this.receiverid,
+    required this.isAdmin,
+    required this.index,
   });
+
   @override
   Widget build(BuildContext context) {
     return data.msgType == "text"
-        ? messages(size)
+        ? messages(size, context)
         : data.msgType == "image"
         ? imagecard(context)
         : filebuild(context);
@@ -283,12 +290,9 @@ class ChatBubble extends StatelessWidget {
     );
   }
 
-  Widget messages(Size size) {
+  Widget messages(Size size, BuildContext context) {
     return Container(
       width: size.width,
-      // alignment: data.userId != receiverid
-      //     ? Alignment.centerLeft
-      //     : Alignment.centerRight,
       alignment: Alignment.centerLeft,
       child: Stack(
         children: [
@@ -312,7 +316,7 @@ class ChatBubble extends StatelessWidget {
                       color: Colors.white.withOpacity(0.8),
                       spreadRadius: 1,
                       blurRadius: 1,
-                      offset: Offset(0, 1), // changes position of shadow
+                      offset: Offset(0, 1),
                     ),
                   ], shape: BoxShape.circle, color: Colors.grey),
                   child: Center(
@@ -349,6 +353,7 @@ class ChatBubble extends StatelessWidget {
                             Text(
                               data.name!,
                               style: TextStyle(
+                                  fontSize: size.width * 0.03,
                                   color: Color((math.Random().nextDouble() *
                                       0xFFFFFF)
                                       .toInt())
@@ -361,160 +366,176 @@ class ChatBubble extends StatelessWidget {
                               formatDate(
                                 data.time!,
                               ),
-                              style: TextStyle(color: Colors.white),
-                            )
+                              style: TextStyle(
+                                  fontSize: size.width * 0.03,color: Colors.white),
+                            ),
                           ],
                         ),
                       ),
                       Text(
                         data.message!,
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 15,
                           color: Colors.white,
                         ),
                       ),
-                      // RichText(
-                      //     text: TextSpan(children: [
-                      //   TextSpan(
-                      //       text: formatDate(data.time!),
-                      //       style: TextStyle(
-                      //         fontSize: 12,
-                      //         color: data.userId == receiverid
-                      //             ? Colors.purple
-                      //             : Colors.purple[900],
-                      //       )),
-                      //   const WidgetSpan(
-                      //       child: SizedBox(
-                      //     width: 3,
-                      //   )),
-                      //   WidgetSpan(
-                      //     child: Icon(
-                      //       Icons.done_all,
-                      //       size: 20,
-                      //       color: data.userId == receiverid
-                      //           ? Colors.purple
-                      //           : Colors.purple[900],
-                      //     ),
-                      //   )
-                      // ])),
                     ],
                   ),
                 ),
+                isAdmin == true || data.userId == receiverid
+                    ? SizedBox(
+                  width: size.width * 0.1,
+                  child: Column(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                elevation: 10,
+                              //  shadowColor: Colors.purple,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                    BorderRadius.circular(10)),
+                                content: SizedBox(
+                                  height: size.height * 0.25,
+                                  width: size.width * 0.8,
+                                  child: Stack(
+                                    children: [
+                                      SizedBox(
+                                        height: size.height * 0.25,
+                                        width: size.width * 0.8,
+                                        child: Center(
+                                            child: Image(
+                                              fit: BoxFit.cover,
+                                              image: AssetImage(
+                                                  "assets/icon/ultranote_icon.png"),
+                                            )),
+                                      ),
+                                      Container(
+                                        height: size.height * 0.25,
+                                        width: size.width * 0.8,
+                                        decoration: BoxDecoration(
+                                            color: Colors.white
+                                                .withOpacity(0.95),
+                                            borderRadius:
+                                            BorderRadius.circular(
+                                                10)),
+                                      ),
+                                      SizedBox(
+                                        height: size.height * 0.25,
+                                        width: size.width * 0.8,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment
+                                              .spaceEvenly,
+                                          children: [
+                                            Text(
+                                              "UPDATE MSG",
+                                              style: TextStyle(
+                                                  fontWeight:
+                                                  FontWeight.bold,
+                                                  fontSize:
+                                                  size.width * 0.04,
+                                                  color: Colors.purple),
+                                            ),
+                                            Container(
+                                              height: size.height * 0.06,
+                                              width: size.width * 0.8,
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                      Colors.purple),
+                                                  borderRadius:
+                                                  BorderRadius
+                                                      .circular(10)),
+                                              child: Padding(
+                                                padding:
+                                                const EdgeInsets.all(
+                                                    8.0),
+                                                child: TextFormField(
+                                                  decoration:
+                                                  InputDecoration(
+                                                      border:
+                                                      InputBorder
+                                                          .none,
+                                                      hintText:
+                                                      "ENter Msg"),
+                                                  controller:
+                                                  UserChatController
+                                                      .to
+                                                      .updateController,
+                                                ),
+                                              ),
+                                            ),
+                                            InkWell(
+                                              onTap: () {
+                                                UserChatController.to
+                                                    .updateMsg(
+                                                    UserChatController
+                                                        .to
+                                                        .updateController
+                                                        .text,
+                                                    data.msgId!,
+                                                    index);
+                                                Navigator.pop(context);
+                                              },
+                                              child: Container(
+                                                height:
+                                                size.height * 0.06,
+                                                width: size.width * 0.3,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                    BorderRadius
+                                                        .circular(10),
+                                                    color: Colors.purple),
+                                                alignment:
+                                                Alignment.center,
+                                                child: Text(
+                                                  "Update",
+                                                  style: TextStyle(
+                                                      color:
+                                                      Colors.white),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        child: Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                        ),
+                      ),
+                      SizedBox(
+                        height: size.height * 0.015,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          UserChatController.to.deleteMsg(data.msgId!);
+                        },
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ),
+                      )
+                    ],
+                  ),
+                )
+                    : SizedBox()
               ],
             ),
           ),
-          // Positioned(
-          //   bottom: 15,
-          //   right: 15,
-          //   child: RichText(
-          //       text: TextSpan(children: [
-          //     TextSpan(
-          //         text: formatDate(data.time!),
-          //         style: TextStyle(
-          //           fontSize: 12,
-          //           color: data.userId != receiverid
-          //               ? Colors.grey.shade100
-          //               : Colors.grey.shade400,
-          //         )),
-          //     const WidgetSpan(
-          //         child: SizedBox(
-          //       width: 3,
-          //     )),
-          //     // WidgetSpan(
-          //     //   child: Icon(
-          //     //     Icons.done_all,
-          //     //     size: 20,
-          //     //     color: data.isRead! ? Colors.green : Colors.grey,
-          //     //   ),
-          //     // )
-          //   ])),
-          // ),
         ],
       ),
     );
   }
-// Widget messages(Size size) {
-//   return Container(
-//     width: size.width,
-//     // alignment: data.userId != receiverid
-//     //     ? Alignment.centerLeft
-//     //     : Alignment.centerRight,
-//     alignment: Alignment.centerLeft,
-//     child: Stack(
-//       children: [
-//         Container(
-//           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
-//           margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-//           decoration: BoxDecoration(
-//               borderRadius: BorderRadius.circular(10),
-//               color: data.userId != receiverid
-//                   ? Colors.purple[900]
-//                   : Colors.purple),
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               Text(
-//                 data.message!,
-//                 style: TextStyle(
-//                   fontSize: 16,
-//                   color: Colors.white,
-//                 ),
-//               ),
-//               RichText(
-//                   text: TextSpan(children: [
-//                 TextSpan(
-//                     text: formatDate(data.time!),
-//                     style: TextStyle(
-//                       fontSize: 12,
-//                       color: data.userId == receiverid
-//                           ? Colors.purple
-//                           : Colors.purple[900],
-//                     )),
-//                 const WidgetSpan(
-//                     child: SizedBox(
-//                   width: 3,
-//                 )),
-//                 WidgetSpan(
-//                   child: Icon(
-//                     Icons.done_all,
-//                     size: 20,
-//                     color: data.userId == receiverid
-//                         ? Colors.purple
-//                         : Colors.purple[900],
-//                   ),
-//                 )
-//               ])),
-//             ],
-//           ),
-//         ),
-//         Positioned(
-//           bottom: 15,
-//           right: 15,
-//           child: RichText(
-//               text: TextSpan(children: [
-//             TextSpan(
-//                 text: formatDate(data.time!),
-//                 style: TextStyle(
-//                   fontSize: 12,
-//                   color: data.userId != receiverid
-//                       ? Colors.grey.shade100
-//                       : Colors.grey.shade400,
-//                 )),
-//             const WidgetSpan(
-//                 child: SizedBox(
-//               width: 3,
-//             )),
-//             // WidgetSpan(
-//             //   child: Icon(
-//             //     Icons.done_all,
-//             //     size: 20,
-//             //     color: data.isRead! ? Colors.green : Colors.grey,
-//             //   ),
-//             // )
-//           ])),
-//         ),
-//       ],
-//     ),
-//   );
-// }
 }

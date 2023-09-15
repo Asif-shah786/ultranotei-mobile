@@ -1,5 +1,8 @@
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ultranote_infinity/screen/activity_log_screen.dart';
 import 'package:ultranote_infinity/screen/contacts/contact_screen.dart';
 import 'package:ultranote_infinity/screen/edit_profile_screen.dart';
@@ -10,11 +13,16 @@ import 'package:ultranote_infinity/screen/login_signup_screen.dart';
 import 'package:ultranote_infinity/screen/reset_pass_screen.dart';
 import 'package:ultranote_infinity/screen/setting_screen.dart';
 import 'package:ultranote_infinity/screen/splash_screen.dart';
+import 'package:ultranote_infinity/service/http_overide.dart';
 
 import 'screen/signup_screen.dart';
 
-void main() {
+void main()async {
   WidgetsFlutterBinding.ensureInitialized();
+  HttpOverrides.global = MyHttpOverrides();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     title: "",
