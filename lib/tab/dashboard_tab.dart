@@ -37,12 +37,13 @@ class _DashboardTabState extends State<DashboardTab> {
   List list = [];
   String address = '';
   bool isWalletCreated = true;
-
+  String userFullName = "User Name";
   getWallets() {
     UserLocalStore userLocalStore = new UserLocalStore();
     Future<CurrentUser> cUSer = userLocalStore.getLoggedInUser();
     cUSer.then((cvalue) {
       setState(() {
+        userFullName = ("${cvalue.firstName} ${cvalue.lastName}").trim();
         isWalletCreated = cvalue.isWalletCreated == "true" ? true : false;
         if (isWalletCreated) {
           _isInAsyncCall = true;
@@ -138,14 +139,53 @@ class _DashboardTabState extends State<DashboardTab> {
         inAsyncCall: _isInAsyncCall,
         child: Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            backgroundColor: CustomAppTheme.black_bar,
-            elevation: 0,
-            centerTitle: true,
-            title: Text('Dashboard', style: CustomAppTheme.actionBarText),
-          ),
+
           body: Column(
             children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.05,
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height * 0.15,
+                width: MediaQuery.of(context).size.width,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.05,
+                      right: MediaQuery.of(context).size.width * 0.1),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Wellcome Dear',
+                                style: CustomAppTheme.actionBarText),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Text(userFullName.toUpperCase(),
+                                style: CustomAppTheme.nameText),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(0, 0, 0, 30),
+                        width: 60,
+                        height: 60,
+                        alignment: Alignment.topCenter,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage("assets/icon/ultranote_icon.png"),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               DashboardCard(
                   double.parse(aXUNI).toStringAsFixed(6),
                   double.parse(aUSD).toStringAsFixed(6),

@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:ultranote_infinity/Constants.dart' as Constans;
+import 'package:ultranote_infinity/model/CurrentUser.dart';
 import 'package:ultranote_infinity/screen/message/get_msglist_model.dart';
+import 'package:ultranote_infinity/utils/UserLocalStore.dart';
 
 class ApiService {
   ApiService._internal();
@@ -155,6 +157,15 @@ class ApiService {
         body: json.encode(map), headers: {"content-type": "application/json"});
     print(response.statusCode);
     return response.body;
+  }
+  Future<dynamic> getChatMessages() async {
+    UserLocalStore userLocalStore = new UserLocalStore();
+    CurrentUser cUSer = await userLocalStore.getLoggedInUser();
+
+    var response = await get(Uri.parse(Constans.api + "wallets/getmessages"),
+        headers: {"Authorization": "Bearer ${cUSer.token}"});
+    var extractData = json.decode(response.body);
+    return extractData;
   }
 
   Future<GetMsgList> getMessages(

@@ -81,14 +81,6 @@ class _BottomBarViewState extends State<BottomBarView>
                                         widget.changeIndex!(1);
                                       }),
                                 ),
-                                SizedBox(
-                                  width: Tween<double>(begin: 0.0, end: 1.0)
-                                      .animate(CurvedAnimation(
-                                      parent: animationController!,
-                                      curve: Curves.fastOutSlowIn))
-                                      .value *
-                                      64.0,
-                                ),
                                 Expanded(
                                   child: TabIcons(
                                       tabIconData: widget.tabIconsList?[2],
@@ -98,6 +90,14 @@ class _BottomBarViewState extends State<BottomBarView>
                                         widget.changeIndex!(2);
                                       }),
                                 ),
+                                // SizedBox(
+                                //   width: Tween<double>(begin: 0.0, end: 1.0)
+                                //           .animate(CurvedAnimation(
+                                //               parent: animationController!,
+                                //               curve: Curves.fastOutSlowIn))
+                                //           .value *
+                                //       64.0,
+                                // ),
                                 Expanded(
                                   child: TabIcons(
                                       tabIconData: widget.tabIconsList?[3],
@@ -105,6 +105,15 @@ class _BottomBarViewState extends State<BottomBarView>
                                         setRemoveAllSelection(
                                             widget.tabIconsList?[3]);
                                         widget.changeIndex!(3);
+                                      }),
+                                ),
+                                Expanded(
+                                  child: TabIcons(
+                                      tabIconData: widget.tabIconsList?[4],
+                                      removeAllSelect: () {
+                                        setRemoveAllSelection(
+                                            widget.tabIconsList?[4]);
+                                        widget.changeIndex!(4);
                                       }),
                                 ),
                               ],
@@ -121,23 +130,7 @@ class _BottomBarViewState extends State<BottomBarView>
           },
         ),
 
-        //+ btn
-        Padding(
-          padding:
-              EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
-          child: Container(
-            margin: EdgeInsets.fromLTRB(0,0,0,30),
-            width: 85 ,
-            height: 85,
-            alignment: Alignment.topCenter,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/icon/ultranote_icon.png"),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-        ),
+    
       ],
     );
   }

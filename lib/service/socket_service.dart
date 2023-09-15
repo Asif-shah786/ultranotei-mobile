@@ -49,4 +49,8 @@ class SocketService {
   static on(String eventName, dynamic Function(dynamic) handler) {
     socket.on(eventName, handler);
   }
+
+  static emit(String eventName, dynamic data) {
+    socket.emit(eventName, data);
+  }
 }

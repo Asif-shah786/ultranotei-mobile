@@ -18,7 +18,8 @@ class CustomAppTheme {
 
   static const TextStyle startText =
       TextStyle(fontWeight: FontWeight.bold, fontSize: 28, color: Colors.white);
-
+  static const TextStyle nameText =
+  TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white);
   static const TextStyle smallWhiteText =
       TextStyle(fontSize: 16, color: Colors.white);
   static const TextStyle smallBlueUnderlineText = TextStyle(

@@ -20,36 +20,39 @@ class TabIconData {
 
   static List<TabIconData> tabIconsList = <TabIconData>[
     TabIconData(
-      imagePath:'assets/icon/handshake.png',
-      selectedImagePath:'assets/icon/handshake.png',
-      index: 0,
-      isSelected: true,
-      animationController: null,
-      title: 'Dashboard'
-    ),
+        imagePath: 'assets/icon/handshake.png',
+        selectedImagePath: 'assets/icon/handshake.png',
+        index: 0,
+        isSelected: true,
+        animationController: null,
+        title: 'Dashboard'),
     TabIconData(
-      imagePath:  'assets/icon/wallet.png',
-      selectedImagePath: 'assets/icon/wallet.png',
-      index: 1,
-      isSelected: false,
-      animationController: null,
-        title: 'Wallet'
-    ),
+        imagePath: 'assets/icon/wallet.png',
+        selectedImagePath: 'assets/icon/wallet.png',
+        index: 1,
+        isSelected: false,
+        animationController: null,
+        title: 'Wallet'),
     TabIconData(
-      imagePath: 'assets/icon/message_icon.png',
-      selectedImagePath: 'assets/icon/message_icon.png',
-      index: 2,
-      isSelected: false,
-      animationController: null,
-        title: 'Message'
-    ),
+        imagePath: 'assets/icon/message_icon.png',
+        selectedImagePath: 'assets/icon/message_icon.png',
+        index: 2,
+        isSelected: false,
+        animationController: null,
+        title: 'Chat'),
     TabIconData(
-      imagePath: 'assets/icon/user.png',
-      selectedImagePath: 'assets/icon/user.png',
-      index: 3,
-      isSelected: false,
-      animationController: null,
-        title: 'Profile'
-    ),
+        imagePath: 'assets/icon/envelop.png',
+        selectedImagePath: 'assets/icon/envelop.png',
+        index: 3,
+        isSelected: false,
+        animationController: null,
+        title: 'Message'),
+    TabIconData(
+        imagePath: 'assets/icon/user.png',
+        selectedImagePath: 'assets/icon/user.png',
+        index: 4,
+        isSelected: false,
+        animationController: null,
+        title: 'Profile'),
   ];
 }
