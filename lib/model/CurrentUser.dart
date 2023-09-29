@@ -3,7 +3,8 @@ class CurrentUser {
   var lastName;
   var email;
   var mobile;
-  var twoFactorAuth;
+  var otp;
+  var twoFA;
   var isActive;
   var isWalletCreated;
   var currency;
@@ -16,7 +17,8 @@ class CurrentUser {
       this.lastName,
       this.email,
       this.mobile,
-      this.twoFactorAuth,
+      this.otp,
+      this.twoFA,
       this.isActive,
       this.isWalletCreated,
       this.currency,

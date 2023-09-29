@@ -10,8 +10,8 @@ class UserLocalStore {
     userLocalDatabase.setString('lastname', cUser.lastName.toString());
     userLocalDatabase.setString('email', cUser.email.toString());
     userLocalDatabase.setString('mobile', cUser.mobile.toString());
-    userLocalDatabase.setString(
-        'twofactorauth', cUser.twoFactorAuth.toString());
+    userLocalDatabase.setString('otp_auth', cUser.otp.toString());
+    userLocalDatabase.setString('twofactorauth', cUser.twoFA.toString());
     userLocalDatabase.setString('isactive', cUser.isActive.toString());
     userLocalDatabase.setString(
         'iswalletcreated', cUser.isWalletCreated.toString());
@@ -33,6 +33,7 @@ class UserLocalStore {
     var lastName = userLocalDatabase.getString('lastname');
     var email = userLocalDatabase.getString('email');
     var mobile = userLocalDatabase.getString('mobile');
+    var otp = userLocalDatabase.getString('otp_auth');
     var twoFactorAuth = userLocalDatabase.getString('twofactorauth');
     var isActive = userLocalDatabase.getString('isactive');
     var isWalletCreated = userLocalDatabase.getString('iswalletcreated');
@@ -47,6 +48,7 @@ class UserLocalStore {
         lastName,
         email,
         mobile,
+        otp,
         twoFactorAuth,
         isActive,
         isWalletCreated,

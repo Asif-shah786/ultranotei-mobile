@@ -1,10 +1,10 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:ultranote_infinity/model/CurrentUser.dart';
-import 'package:ultranote_infinity/screen/twoFAScreen.dart';
 import 'package:ultranote_infinity/service/api_service.dart';
 import 'package:ultranote_infinity/utils/UserLocalStore.dart';
 import 'package:ultranote_infinity/utils/utils.dart';
@@ -13,17 +13,17 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../app_theme.dart';
 
-class OTPScreen extends StatefulWidget {
+class TwoFAScreen extends StatefulWidget {
   String pass;
   String token;
 
-  OTPScreen(this.pass, this.token);
+  TwoFAScreen(this.pass, this.token);
 
   @override
-  State<OTPScreen> createState() => _OTPScreenState();
+  State<TwoFAScreen> createState() => _TwoFAScreenState();
 }
 
-class _OTPScreenState extends State<OTPScreen> {
+class _TwoFAScreenState extends State<TwoFAScreen> {
   bool _isInAsyncCall = false;
   int otp = 0;
 
@@ -68,7 +68,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     height: 25,
                   ),
                   Text(
-                    "Code Verification",
+                    "2FA Code Verification",
                     style: CustomAppTheme.startText,
                   ),
                   SizedBox(
@@ -77,7 +77,7 @@ class _OTPScreenState extends State<OTPScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 50.0),
                     child: Text(
-                      "Enter the verification code which was sent to your email.",
+                      "Enter the 2FA verifcation code from your authentication app.",
                       style: CustomAppTheme.smallWhiteText,
                       textAlign: TextAlign.center,
                     ),
@@ -127,6 +127,7 @@ class _OTPScreenState extends State<OTPScreen> {
       ),
     );
   }
+
   submitPress() {
     print('login');
 
@@ -141,47 +142,32 @@ class _OTPScreenState extends State<OTPScreen> {
       _isInAsyncCall = true;
     });
 
-    ApiService.instance.otp(otp, widget.token).then((value) {
+    ApiService.instance.verifyby2FA(otp, widget.token).then((value) {
       var extractData = json.decode(value.body);
-      if (value.statusCode == 400) {
+      if (value.statusCode == 200) {
+        log(extractData.toString());
+        print('name  ${extractData.toString()}');
+        CurrentUser currentUser = new CurrentUser(
+            extractData['user']['firstName'].toString(),
+            extractData['user']['lastName'].toString(),
+            extractData['user']['mail'].toString(),
+            extractData['user']['phone'].toString(),
+            extractData['user']['otp_auth'].toString(),
+            extractData['user']['two_fact_auth'].toString(),
+            extractData['user']['isActive'].toString(),
+            extractData['user']['isWalletCreated'].toString(),
+            extractData['user']['currency'].toString(),
+            extractData['user']['id'].toString(),
+            extractData['token'].toString(),
+            widget.pass);
+        UserLocalStore userLocalStore = new UserLocalStore();
+        userLocalStore.storeUserData(currentUser);
         showSnackBar(context, extractData['message']);
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            '/homescreen', (Route<dynamic> route) => false);
       } else {
-
-        if (extractData['status'] == "next") {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    TwoFAScreen(widget.pass, extractData['token'].toString()),
-              ));
-        } else {
-          print('name  ${extractData.toString()}');
-          CurrentUser currentUser = new CurrentUser(
-              extractData['user']['firstName'].toString(),
-              extractData['user']['lastName'].toString(),
-              extractData['user']['mail'].toString(),
-              extractData['user']['phone'].toString(),
-              extractData['user']['otp_auth'].toString(),
-              extractData['user']['two_fact_auth'].toString(),
-              extractData['user']['isActive'].toString(),
-              extractData['user']['isWalletCreated'].toString(),
-              extractData['user']['currency'].toString(),
-              extractData['user']['id'].toString(),
-              extractData['token'].toString(),
-              widget.pass);
-          UserLocalStore userLocalStore = new UserLocalStore();
-          userLocalStore.storeUserData(currentUser);
-          showSnackBar(context, extractData['message']);
-          Navigator.of(context).pushNamedAndRemoveUntil(
-              '/homescreen', (Route<dynamic> route) => false);
-        }
+        showSnackBar(context, extractData['message']);
       }
-
-      // if (value.statusCode == 200) {
-
-      // } else {
-
-      // }
 
       setState(() {
         _isInAsyncCall = false;

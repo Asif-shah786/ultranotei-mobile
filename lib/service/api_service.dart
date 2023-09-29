@@ -97,15 +97,46 @@ class ApiService {
 
     return response;
   }
+  Future<dynamic> changeAuthenticator(String id, bool isActive) async {
+    var map = new Map<String, dynamic>();
+    map['_id'] = id;
+    map['state'] = isActive;
+    var response = await post(Uri.parse(Constans.api + "user/auth2FATMP"),
+        body: json.encode(map), headers: {"content-type": "application/json"});
+    // var response = await post(Uri.parse(Constans.api + "user/change2fa"), body: json.encode(map));
 
+    return response;
+  }
+  Future<dynamic> verifyAuthenticator(String id, String token) async {
+    var map = new Map<String, dynamic>();
+    map['_id'] = id;
+    map['token'] = token;
+    var response = await post(Uri.parse(Constans.api + "user/auth2FAConfirm"),
+        body: json.encode(map), headers: {"content-type": "application/json"});
+    // var response = await post(Uri.parse(Constans.api + "user/change2fa"), body: json.encode(map));
+
+    return response;
+  }
   Future<dynamic> otp(var otp, String token) async {
+    print("--------");
+    print(token);
+    print(otp);
+    var map = new Map<String, dynamic>();
+    map['code'] = otp;
+    var response = await post(Uri.parse(Constans.api + "otp/${token}"),
+        body: json.encode(map), headers: {"content-type": "application/json"});
+    return response;
+  }
+  Future<dynamic> verifyby2FA(var otp, String token) async {
+    print("--------");
+    print(token);
+    print(otp);
     var map = new Map<String, dynamic>();
     map['code'] = otp;
     var response = await post(Uri.parse(Constans.api + "twofacode/${token}"),
-        body: json.encode(map));
+        body: json.encode(map), headers: {"content-type": "application/json"});
     return response;
   }
-
   Future<dynamic> mywallet(String id) async {
     var map = new Map<String, dynamic>();
     map['id'] = id;
