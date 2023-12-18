@@ -8,6 +8,7 @@ import 'package:ultranote_infinity/screen/chat/user_chat_screen.dart';
 import 'package:ultranote_infinity/screen/chat/user_home_controller.dart';
 import 'package:ultranote_infinity/screen/contacts/contact_controller.dart';
 import 'package:ultranote_infinity/service/socket_service.dart';
+import 'package:ultranote_infinity/tab/deposit_tab.dart';
 import 'package:ultranote_infinity/tab/message_tab.dart';
 import 'package:ultranote_infinity/tab/wallet_tab.dart';
 import 'package:ultranote_infinity/tab/profile_tab.dart';
@@ -131,7 +132,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 });
               });
             } else if (index == 2) {
-
               animationController?.reverse().then<dynamic>((data) {
                 if (!mounted) {
                   return;
@@ -152,6 +152,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 });
               });
             } else if (index == 4) {
+              animationController?.reverse().then<dynamic>((data) {
+                if (!mounted) {
+                  return;
+                }
+                setState(() {
+                  tabBody =
+                      DepositTab(animationController: animationController);
+                });
+              });
+            } else if (index == 5) {
               animationController?.reverse().then<dynamic>((data) {
                 if (!mounted) {
                   return;

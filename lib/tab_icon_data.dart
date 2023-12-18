@@ -7,7 +7,7 @@ class TabIconData {
     this.selectedImagePath = '',
     this.isSelected = false,
     this.animationController,
-    this.title='',
+    this.title = '',
   });
 
   String imagePath;
@@ -51,6 +51,13 @@ class TabIconData {
         imagePath: 'assets/icon/user.png',
         selectedImagePath: 'assets/icon/user.png',
         index: 4,
+        isSelected: false,
+        animationController: null,
+        title: 'Deposit'),
+    TabIconData(
+        imagePath: 'assets/icon/user.png',
+        selectedImagePath: 'assets/icon/user.png',
+        index: 5,
         isSelected: false,
         animationController: null,
         title: 'Profile'),
