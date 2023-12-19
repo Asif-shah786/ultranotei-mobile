@@ -154,7 +154,7 @@ class _DashboardTabState extends State<DashboardTab> {
                 child: Padding(
                   padding: EdgeInsets.only(
                       left: MediaQuery.of(context).size.width * 0.05,
-                      right: MediaQuery.of(context).size.width * 0.1),
+                      right: MediaQuery.of(context).size.width * 0.05),
                   child: Column(children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -190,25 +190,28 @@ class _DashboardTabState extends State<DashboardTab> {
                       ],
                     ),
                     Expanded(
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: Size.fromHeight(50),
-                            primary: CustomAppTheme.black_bar,
-                          ),
-                          onPressed: () => {
-                                widget.animationController
-                                    ?.reverse()
-                                    .then<dynamic>((data) {
-                                  if (!mounted) {
-                                    return;
-                                  }
-                                  print('HELLO');
-                                  setState(() {
-                                    widget.goToProfile();
-                                  });
-                                })
-                              },
-                          child: Text('Settings')),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: Size.fromHeight(50),
+                              primary: CustomAppTheme.black_bar,
+                            ),
+                            onPressed: () => {
+                                  widget.animationController
+                                      ?.reverse()
+                                      .then<dynamic>((data) {
+                                    if (!mounted) {
+                                      return;
+                                    }
+                                    print('HELLO');
+                                    setState(() {
+                                      widget.goToProfile();
+                                    });
+                                  })
+                                },
+                            child: Text('Edit Profile')),
+                      ),
                     )
                   ]),
                 ),
