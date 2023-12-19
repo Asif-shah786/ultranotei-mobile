@@ -43,6 +43,20 @@ class ApiService {
     return response;
   }
 
+  Future<dynamic> postDeposit(
+      String id, String address, double amount, int term) async {
+    var map = new Map<String, dynamic>();
+    map['id'] = id;
+    map['sourceAddress'] = address;
+    map['amount'] = amount;
+    map['term'] = term;
+    var response = await post(Uri.parse(Constans.api + "wallets/deposit_stake"),
+        body: json.encode(map), headers: {"content-type": "application/json"});
+    var extractData = json.decode(response.body);
+
+    return extractData;
+  }
+
   Future<dynamic> resetpass(String newpass, String token) async {
     var map = new Map<String, dynamic>();
     map['password'] = newpass;
@@ -154,6 +168,13 @@ class ApiService {
   Future<dynamic> transactions(String xuni) async {
     var response =
         await get(Uri.parse(Constans.api + "wallets/transactions/${xuni}"));
+    var extractData = json.decode(response.body);
+    return extractData;
+  }
+
+  Future<dynamic> deposits(String xuni) async {
+    var response =
+        await get(Uri.parse(Constans.api + "wallets/my_deposits/${xuni}"));
     var extractData = json.decode(response.body);
     return extractData;
   }

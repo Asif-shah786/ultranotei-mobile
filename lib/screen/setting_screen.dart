@@ -72,7 +72,7 @@ class _SettingScreenState extends State<SettingScreen> {
             backgroundColor: CustomAppTheme.black_bar,
             elevation: 0,
             centerTitle: true,
-            title: Text('Settings', style: CustomAppTheme.actionBarText),
+            title: Text('Edit Profile', style: CustomAppTheme.actionBarText),
           ),
           body: Container(
             height: height,
@@ -123,122 +123,122 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     qrImage == ''
                         ? SizedBox(
-                      height: height * 0.3,
-                      width: width,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "2FA Factor Authentication",
-                            style: CustomAppTheme.settingText,
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            "Authenticator App",
-                            style: CustomAppTheme.smallWhiteBoldText,
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            "Use the Authenticator app to get verifcation codes, You can use Google Authenticator or any similar apps.",
-                            style: CustomAppTheme.smallBlueBoldText,
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          is2FaEnable == true
-                              ? Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 50.0),
-                            child: LoginBtn('Disable', () {
-                              deactivateAuthenticator(false);
-                            }, CustomAppTheme.btnWhiteText),
-                          )
-                              : Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 50.0),
-                            child: LoginBtn('Enable', () {
-                              activateAuthenticator(true);
-                            }, CustomAppTheme.btnWhiteText),
-                          ),
-                        ],
-                      ),
-                    )
-                        : Container(
-                      height: height * 0.5,
-                      width: width,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Container(
-                            height: height * 0.2,
-                            width: width * 0.5,
-                            child: Image.memory(Base64Decoder().convert(
-                                qrImage.replaceAll(
-                                    "data:image/png;base64,", ""))),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 50.0),
-                            child: InputAuthField("CODE", CodeController,
-                                TextInputType.number, false),
-                          ),
-                          Container(
-                            height: height * 0.1,
+                            height: height * 0.3,
                             width: width,
-                            child: Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceEvenly,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                InkWell(
-                                  onTap: () {
-                                    if (CodeController.text.isNotEmpty) {
-                                      verifyAuthenticator();
-                                    } else {
-                                      print("fill data");
-                                    }
-                                  },
-                                  child: Container(
-                                    height: height * 0.07,
-                                    width: width * 0.35,
-                                    decoration: BoxDecoration(
-                                        color: CustomAppTheme.black_login,
-                                        borderRadius:
-                                        BorderRadius.circular(10)),
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      "CONFIRM",
-                                      style:
-                                      TextStyle(color: Colors.white),
-                                    ),
-                                  ),
+                                Text(
+                                  "2FA Factor Authentication",
+                                  style: CustomAppTheme.settingText,
                                 ),
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      qrImage = '';
-                                    });
-                                  },
-                                  child: Container(
-                                    height: height * 0.07,
-                                    width: width * 0.35,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius:
-                                        BorderRadius.circular(10)),
-                                    alignment: Alignment.center,
-                                    child: Text("CANCEL"),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Text(
+                                  "Authenticator App",
+                                  style: CustomAppTheme.smallWhiteBoldText,
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Text(
+                                  "Use the Authenticator app to get verifcation codes, You can use Google Authenticator or any similar apps.",
+                                  style: CustomAppTheme.smallBlueBoldText,
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                is2FaEnable == true
+                                    ? Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 50.0),
+                                        child: LoginBtn('Disable', () {
+                                          deactivateAuthenticator(false);
+                                        }, CustomAppTheme.btnWhiteText),
+                                      )
+                                    : Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 50.0),
+                                        child: LoginBtn('Enable', () {
+                                          activateAuthenticator(true);
+                                        }, CustomAppTheme.btnWhiteText),
+                                      ),
+                              ],
+                            ),
+                          )
+                        : Container(
+                            height: height * 0.5,
+                            width: width,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Container(
+                                  height: height * 0.2,
+                                  width: width * 0.5,
+                                  child: Image.memory(Base64Decoder().convert(
+                                      qrImage.replaceAll(
+                                          "data:image/png;base64,", ""))),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 50.0),
+                                  child: InputAuthField("CODE", CodeController,
+                                      TextInputType.number, false),
+                                ),
+                                Container(
+                                  height: height * 0.1,
+                                  width: width,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          if (CodeController.text.isNotEmpty) {
+                                            verifyAuthenticator();
+                                          } else {
+                                            print("fill data");
+                                          }
+                                        },
+                                        child: Container(
+                                          height: height * 0.07,
+                                          width: width * 0.35,
+                                          decoration: BoxDecoration(
+                                              color: CustomAppTheme.black_login,
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "CONFIRM",
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            qrImage = '';
+                                          });
+                                        },
+                                        child: Container(
+                                          height: height * 0.07,
+                                          width: width * 0.35,
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          alignment: Alignment.center,
+                                          child: Text("CANCEL"),
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 )
                               ],
                             ),
-                          )
-                        ],
-                      ),
-                    ),
+                          ),
                     SizedBox(
                       height: 50,
                     ),

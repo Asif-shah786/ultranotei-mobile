@@ -3,7 +3,7 @@ description: UltraNote infinity encrypted messaging and billing system with up 1
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -30,7 +30,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   flutter_svg: ^0.22.0
   flutter_launcher_icons: ^0.9.2
   http: ^0.13.0
@@ -44,8 +43,8 @@ dependencies:
   # new work
   html_editor_enhanced:
   get:
-  dio: 
-  file_picker: 
+  dio:
+  file_picker:
   percent_indicator: ^4.2.1
   archive:
   path_provider:
@@ -59,18 +58,14 @@ dependencies:
   uuid:
   image_picker:
 
-  
-  
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-
+  jiffy: ^5.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
 
 flutter_icons:
   android: "launcher_icon"
@@ -88,7 +83,6 @@ flutter_icons:
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -96,9 +90,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-   - assets/
-   - assets/icon/
-   - assets/back/
+    - assets/
+    - assets/icon/
+    - assets/back/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

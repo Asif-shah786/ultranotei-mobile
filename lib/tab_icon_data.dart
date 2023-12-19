@@ -7,7 +7,7 @@ class TabIconData {
     this.selectedImagePath = '',
     this.isSelected = false,
     this.animationController,
-    this.title='',
+    this.title = '',
   });
 
   String imagePath;
@@ -34,12 +34,12 @@ class TabIconData {
         animationController: null,
         title: 'Wallet'),
     TabIconData(
-        imagePath: 'assets/icon/message_icon.png',
-        selectedImagePath: 'assets/icon/message_icon.png',
+        imagePath: 'assets/icon/icons8-bank-50.png',
+        selectedImagePath: 'assets/icon/icons8-bank-50.png',
         index: 2,
         isSelected: false,
         animationController: null,
-        title: 'Chat'),
+        title: 'Deposit'),
     TabIconData(
         imagePath: 'assets/icon/envelop.png',
         selectedImagePath: 'assets/icon/envelop.png',
@@ -48,9 +48,16 @@ class TabIconData {
         animationController: null,
         title: 'Message'),
     TabIconData(
+        imagePath: 'assets/icon/message_icon.png',
+        selectedImagePath: 'assets/icon/message_icon.png',
+        index: 4,
+        isSelected: false,
+        animationController: null,
+        title: 'Chat'),
+    TabIconData(
         imagePath: 'assets/icon/user.png',
         selectedImagePath: 'assets/icon/user.png',
-        index: 4,
+        index: 5,
         isSelected: false,
         animationController: null,
         title: 'Profile'),

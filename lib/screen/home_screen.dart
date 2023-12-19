@@ -8,6 +8,7 @@ import 'package:ultranote_infinity/screen/chat/user_chat_screen.dart';
 import 'package:ultranote_infinity/screen/chat/user_home_controller.dart';
 import 'package:ultranote_infinity/screen/contacts/contact_controller.dart';
 import 'package:ultranote_infinity/service/socket_service.dart';
+import 'package:ultranote_infinity/tab/deposit_tab.dart';
 import 'package:ultranote_infinity/tab/message_tab.dart';
 import 'package:ultranote_infinity/tab/wallet_tab.dart';
 import 'package:ultranote_infinity/tab/profile_tab.dart';
@@ -41,7 +42,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     SocketService.connect();
     animationController = AnimationController(
         duration: const Duration(milliseconds: 600), vsync: this);
-    tabBody = DashboardTab(animationController: animationController);
+    tabBody = DashboardTab(
+        animationController: animationController,
+        goToProfile: (() => {
+              setState(() {
+                tabBody = ProfileTab(animationController: animationController);
+              })
+            }));
     super.initState();
     SocketService.OnConnect((p0) => {print("hello socket " + p0)});
   }
@@ -117,8 +124,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   return;
                 }
                 setState(() {
-                  tabBody =
-                      DashboardTab(animationController: animationController);
+                  tabBody = DashboardTab(
+                      animationController: animationController,
+                      goToProfile: (() => {
+                            setState(() {
+                              tabBody = ProfileTab(
+                                  animationController: animationController);
+                            })
+                          }));
                 });
               });
             } else if (index == 1) {
@@ -130,8 +143,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   tabBody = WalletTab(animationController: animationController);
                 });
               });
-            } else if (index == 2) {
-
+            } else if (index == 4) {
               animationController?.reverse().then<dynamic>((data) {
                 if (!mounted) {
                   return;
@@ -151,7 +163,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       MessageTab(animationController: animationController);
                 });
               });
-            } else if (index == 4) {
+            } else if (index == 2) {
+              animationController?.reverse().then<dynamic>((data) {
+                if (!mounted) {
+                  return;
+                }
+                setState(() {
+                  tabBody =
+                      DepositTab(animationController: animationController);
+                });
+              });
+            } else if (index == 5) {
               animationController?.reverse().then<dynamic>((data) {
                 if (!mounted) {
                   return;
