@@ -13,6 +13,7 @@ import 'package:ultranote_infinity/widget/deposit_card.dart';
 import 'package:ultranote_infinity/widget/history_card.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
+import 'package:jiffy/jiffy.dart';
 
 import '../../app_theme.dart';
 import '../widget/numeric_input.dart';
@@ -266,17 +267,18 @@ class _DepositTabState extends State<DepositTab> {
         itemBuilder: ((context, index) {
           // replace this with your actal index uvalue
           bool isWithdrawn = list[index]['isWithdrawn'];
+          String dateEx = list[index]['createdAt'];
           DateTime currentDateObj = DateTime.now();
           DateTime createdDateObj = DateTime.parse(list[index]['createdAt']);
           int months = (list[index]['term'] / 22000).ceil();
           print(months);
-          int equivalentDays = 30 * (months);
-          createdDateObj = DateTime(
-              createdDateObj.year,
-              createdDateObj.month + months,
-              createdDateObj.day,
-              createdDateObj.hour,
-              createdDateObj.minute);
+          // createdDateObj = DateTime(
+          //     createdDateObj.year,
+          //     createdDateObj.month,
+          //     createdDateObj.day,
+          //     createdDateObj.hour,
+          //     createdDateObj.minute);
+          createdDateObj = Jiffy(dateEx).add(months: months).dateTime.toLocal();
           // Updates Year and month respectively
           // createdDateObj.add(Duration(days: equivalentDays));
           int term = (list[index]['term'] / 22000).round();
