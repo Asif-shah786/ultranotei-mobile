@@ -34,6 +34,13 @@ class TabIconData {
         animationController: null,
         title: 'Wallet'),
     TabIconData(
+        imagePath: 'assets/icon/icons8-bank-50.png',
+        selectedImagePath: 'assets/icon/icons8-bank-50.png',
+        index: 4,
+        isSelected: false,
+        animationController: null,
+        title: 'Deposit'),
+    TabIconData(
         imagePath: 'assets/icon/message_icon.png',
         selectedImagePath: 'assets/icon/message_icon.png',
         index: 2,
@@ -47,13 +54,6 @@ class TabIconData {
         isSelected: false,
         animationController: null,
         title: 'Message'),
-    TabIconData(
-        imagePath: 'assets/icon/user.png',
-        selectedImagePath: 'assets/icon/user.png',
-        index: 4,
-        isSelected: false,
-        animationController: null,
-        title: 'Deposit'),
     TabIconData(
         imagePath: 'assets/icon/user.png',
         selectedImagePath: 'assets/icon/user.png',

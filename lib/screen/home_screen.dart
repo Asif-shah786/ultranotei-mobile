@@ -42,7 +42,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     SocketService.connect();
     animationController = AnimationController(
         duration: const Duration(milliseconds: 600), vsync: this);
-    tabBody = DashboardTab(animationController: animationController);
+    tabBody = DashboardTab(
+        animationController: animationController,
+        goToProfile: (() => {
+              setState(() {
+                tabBody = ProfileTab(animationController: animationController);
+              })
+            }));
     super.initState();
     SocketService.OnConnect((p0) => {print("hello socket " + p0)});
   }
@@ -118,8 +124,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   return;
                 }
                 setState(() {
-                  tabBody =
-                      DashboardTab(animationController: animationController);
+                  tabBody = DashboardTab(
+                      animationController: animationController,
+                      goToProfile: (() => {
+                            setState(() {
+                              tabBody = ProfileTab(
+                                  animationController: animationController);
+                            })
+                          }));
                 });
               });
             } else if (index == 1) {
@@ -131,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   tabBody = WalletTab(animationController: animationController);
                 });
               });
-            } else if (index == 2) {
+            } else if (index == 4) {
               animationController?.reverse().then<dynamic>((data) {
                 if (!mounted) {
                   return;
@@ -151,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       MessageTab(animationController: animationController);
                 });
               });
-            } else if (index == 4) {
+            } else if (index == 2) {
               animationController?.reverse().then<dynamic>((data) {
                 if (!mounted) {
                   return;
