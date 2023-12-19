@@ -5,6 +5,7 @@ import 'package:ultranote_infinity/model/CurrentUser.dart';
 import 'package:ultranote_infinity/screen/dashboard/buy_screen.dart';
 import 'package:ultranote_infinity/screen/dashboard/sell_screen.dart';
 import 'package:ultranote_infinity/service/api_service.dart';
+import 'package:ultranote_infinity/tab/profile_tab.dart';
 import 'package:ultranote_infinity/utils/UserLocalStore.dart';
 import 'package:ultranote_infinity/utils/utils.dart';
 import 'package:ultranote_infinity/widget/buy_card.dart';
@@ -15,15 +16,18 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../app_theme.dart';
 
 class DashboardTab extends StatefulWidget {
-  const DashboardTab({Key? key, this.animationController}) : super(key: key);
+  const DashboardTab(
+      {Key? key, this.animationController, required this.goToProfile})
+      : super(key: key);
   final AnimationController? animationController;
-
+  final void Function() goToProfile;
   @override
   _DashboardTabState createState() => _DashboardTabState();
 }
 
 class _DashboardTabState extends State<DashboardTab> {
   Animation<double>? topBarAnimation;
+  final _controller = PageController();
 
   final ScrollController scrollController = ScrollController();
   double topBarOpacity = 0.0;
@@ -139,7 +143,6 @@ class _DashboardTabState extends State<DashboardTab> {
         inAsyncCall: _isInAsyncCall,
         child: Scaffold(
           backgroundColor: Colors.transparent,
-
           body: Column(
             children: [
               SizedBox(
@@ -151,39 +154,66 @@ class _DashboardTabState extends State<DashboardTab> {
                 child: Padding(
                   padding: EdgeInsets.only(
                       left: MediaQuery.of(context).size.width * 0.05,
-                      right: MediaQuery.of(context).size.width * 0.1),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Wellcome',
-                                style: CustomAppTheme.actionBarText),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Text(userFullName.toUpperCase(),
-                                style: CustomAppTheme.nameText),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.fromLTRB(0, 0, 0, 30),
-                        width: 60,
-                        height: 60,
-                        alignment: Alignment.topCenter,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage("assets/icon/ultranote_icon.png"),
-                            fit: BoxFit.cover,
+                      right: MediaQuery.of(context).size.width * 0.05),
+                  child: Column(children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Welcome',
+                                  style: CustomAppTheme.actionBarText),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Text(userFullName.toUpperCase(),
+                                  style: CustomAppTheme.nameText),
+                            ],
                           ),
                         ),
+                        Container(
+                          margin: EdgeInsets.fromLTRB(0, 0, 0, 30),
+                          width: 60,
+                          height: 60,
+                          alignment: Alignment.topCenter,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image:
+                                  AssetImage("assets/icon/ultranote_icon.png"),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: Size.fromHeight(50),
+                              primary: CustomAppTheme.black_bar,
+                            ),
+                            onPressed: () => {
+                                  widget.animationController
+                                      ?.reverse()
+                                      .then<dynamic>((data) {
+                                    if (!mounted) {
+                                      return;
+                                    }
+                                    print('HELLO');
+                                    setState(() {
+                                      widget.goToProfile();
+                                    });
+                                  })
+                                },
+                            child: Text('Edit Profile')),
                       ),
-                    ],
-                  ),
+                    )
+                  ]),
                 ),
               ),
               DashboardCard(

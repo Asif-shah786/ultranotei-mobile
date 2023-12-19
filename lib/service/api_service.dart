@@ -43,6 +43,20 @@ class ApiService {
     return response;
   }
 
+  Future<dynamic> postDeposit(
+      String id, String address, double amount, int term) async {
+    var map = new Map<String, dynamic>();
+    map['id'] = id;
+    map['sourceAddress'] = address;
+    map['amount'] = amount;
+    map['term'] = term;
+    var response = await post(Uri.parse(Constans.api + "wallets/deposit_stake"),
+        body: json.encode(map), headers: {"content-type": "application/json"});
+    var extractData = json.decode(response.body);
+
+    return extractData;
+  }
+
   Future<dynamic> resetpass(String newpass, String token) async {
     var map = new Map<String, dynamic>();
     map['password'] = newpass;
@@ -97,6 +111,7 @@ class ApiService {
 
     return response;
   }
+
   Future<dynamic> changeAuthenticator(String id, bool isActive) async {
     var map = new Map<String, dynamic>();
     map['_id'] = id;
@@ -107,6 +122,7 @@ class ApiService {
 
     return response;
   }
+
   Future<dynamic> verifyAuthenticator(String id, String token) async {
     var map = new Map<String, dynamic>();
     map['_id'] = id;
@@ -117,6 +133,7 @@ class ApiService {
 
     return response;
   }
+
   Future<dynamic> otp(var otp, String token) async {
     print("--------");
     print(token);
@@ -127,6 +144,7 @@ class ApiService {
         body: json.encode(map), headers: {"content-type": "application/json"});
     return response;
   }
+
   Future<dynamic> verifyby2FA(var otp, String token) async {
     print("--------");
     print(token);
@@ -137,6 +155,7 @@ class ApiService {
         body: json.encode(map), headers: {"content-type": "application/json"});
     return response;
   }
+
   Future<dynamic> mywallet(String id) async {
     var map = new Map<String, dynamic>();
     map['id'] = id;
@@ -149,6 +168,13 @@ class ApiService {
   Future<dynamic> transactions(String xuni) async {
     var response =
         await get(Uri.parse(Constans.api + "wallets/transactions/${xuni}"));
+    var extractData = json.decode(response.body);
+    return extractData;
+  }
+
+  Future<dynamic> deposits(String xuni) async {
+    var response =
+        await get(Uri.parse(Constans.api + "wallets/my_deposits/${xuni}"));
     var extractData = json.decode(response.body);
     return extractData;
   }
@@ -189,6 +215,7 @@ class ApiService {
     print(response.statusCode);
     return response.body;
   }
+
   Future<dynamic> getChatMessages() async {
     UserLocalStore userLocalStore = new UserLocalStore();
     CurrentUser cUSer = await userLocalStore.getLoggedInUser();
