@@ -31,8 +31,8 @@ class ApiService {
     print(map);
     var response = await post(Uri.parse(Constans.api + "signin"), body: map);
     print('server response object');
-    print('${response.statusCode}');
     print('${response.body}');
+    print('${response}');
     return response;
   }
 
@@ -97,6 +97,7 @@ class ApiService {
 
     return response;
   }
+
   Future<dynamic> changeAuthenticator(String id, bool isActive) async {
     var map = new Map<String, dynamic>();
     map['_id'] = id;
@@ -107,6 +108,7 @@ class ApiService {
 
     return response;
   }
+
   Future<dynamic> verifyAuthenticator(String id, String token) async {
     var map = new Map<String, dynamic>();
     map['_id'] = id;
@@ -117,6 +119,7 @@ class ApiService {
 
     return response;
   }
+
   Future<dynamic> otp(var otp, String token) async {
     print("--------");
     print(token);
@@ -127,6 +130,7 @@ class ApiService {
         body: json.encode(map), headers: {"content-type": "application/json"});
     return response;
   }
+
   Future<dynamic> verifyby2FA(var otp, String token) async {
     print("--------");
     print(token);
@@ -137,6 +141,7 @@ class ApiService {
         body: json.encode(map), headers: {"content-type": "application/json"});
     return response;
   }
+
   Future<dynamic> mywallet(String id) async {
     var map = new Map<String, dynamic>();
     map['id'] = id;
@@ -189,6 +194,7 @@ class ApiService {
     print(response.statusCode);
     return response.body;
   }
+
   Future<dynamic> getChatMessages() async {
     UserLocalStore userLocalStore = new UserLocalStore();
     CurrentUser cUSer = await userLocalStore.getLoggedInUser();

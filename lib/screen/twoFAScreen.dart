@@ -158,6 +158,7 @@ class _TwoFAScreenState extends State<TwoFAScreen> {
             extractData['user']['isWalletCreated'].toString(),
             extractData['user']['currency'].toString(),
             extractData['user']['id'].toString(),
+            extractData['user']['image'].toString(),
             extractData['token'].toString(),
             widget.pass);
         UserLocalStore userLocalStore = new UserLocalStore();

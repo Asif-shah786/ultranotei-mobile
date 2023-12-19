@@ -9,6 +9,7 @@ class CurrentUser {
   var isWalletCreated;
   var currency;
   var id;
+  var image;
   var token;
   var pass;
 
@@ -23,6 +24,7 @@ class CurrentUser {
       this.isWalletCreated,
       this.currency,
       this.id,
+      this.image,
       this.token,
       this.pass);
 }

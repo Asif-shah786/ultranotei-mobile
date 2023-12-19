@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
         if (value.id.toString() == 'null' || value.id.toString().isEmpty) {
           Navigator.pushReplacementNamed(context, '/loginsignupscreen');
         } else {
-        //  loginApi(value.email, value.pass);
+          //  loginApi(value.email, value.pass);
           Navigator.of(context).pushNamedAndRemoveUntil(
               '/homescreen', (Route<dynamic> route) => false);
         }
@@ -81,6 +81,7 @@ class _SplashScreenState extends State<SplashScreen> {
       var extractData = json.decode(value.body);
       if (value.statusCode == 200) {
         print(extractData.toString());
+        print('IMAGE' + extractData['user']['image'].toString());
         CurrentUser currentUser = new CurrentUser(
             extractData['user']['firstName'].toString(),
             extractData['user']['lastName'].toString(),
@@ -92,6 +93,7 @@ class _SplashScreenState extends State<SplashScreen> {
             extractData['user']['isWalletCreated'].toString(),
             extractData['user']['currency'].toString(),
             extractData['user']['id'].toString(),
+            extractData['user']['image'].toString(),
             extractData['token'].toString(),
             pass);
         print(' ${extractData['user']['contacts']}');
@@ -101,7 +103,7 @@ class _SplashScreenState extends State<SplashScreen> {
           var label = demoList[i][0];
           var addresee = demoList[i][1];
           ContactListMOdel model =
-          ContactListMOdel(address: addresee, label: label);
+              ContactListMOdel(address: addresee, label: label);
           ContactListMOdel.contactList.add(model);
         }
         print('check List${ContactListMOdel.contactList.length}');

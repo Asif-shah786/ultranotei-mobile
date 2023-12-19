@@ -43,6 +43,7 @@ class _DashboardTabState extends State<DashboardTab> {
     Future<CurrentUser> cUSer = userLocalStore.getLoggedInUser();
     cUSer.then((cvalue) {
       setState(() {
+        print("Image" + cvalue.image);
         userFullName = ("${cvalue.firstName} ${cvalue.lastName}").trim();
         isWalletCreated = cvalue.isWalletCreated == "true" ? true : false;
         if (isWalletCreated) {
@@ -139,7 +140,6 @@ class _DashboardTabState extends State<DashboardTab> {
         inAsyncCall: _isInAsyncCall,
         child: Scaffold(
           backgroundColor: Colors.transparent,
-
           body: Column(
             children: [
               SizedBox(
