@@ -203,14 +203,14 @@ class _LoginScreenState extends State<LoginScreen> {
         if (value.statusCode == 200) {
           log(extractData.toString());
           print('name  ${extractData.toString()}');
-          print(' ${extractData['user']['contacts']}');
+          print('IMAGEss ${extractData['user']['image']}');
           List demoList = extractData['user']['contacts'];
           ContactController.to.clearList();
           for (int i = 0; i < demoList.length; i++) {
             var label = demoList[i][0];
             var addresee = demoList[i][1];
             ContactListMOdel model =
-            ContactListMOdel(address: addresee, label: label);
+                ContactListMOdel(address: addresee, label: label);
             ContactListMOdel.contactList.add(model);
           }
           print('check List${ContactListMOdel.contactList.length}');
@@ -293,6 +293,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 extractData['user']['isWalletCreated'].toString(),
                 extractData['user']['currency'].toString(),
                 extractData['user']['id'].toString(),
+                extractData['user']['image'].toString(),
                 extractData['token'].toString(),
                 pass);
             UserLocalStore userLocalStore = new UserLocalStore();
@@ -318,7 +319,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             Future.delayed(Duration(seconds: 2), () {
                               Navigator.of(context).pushNamedAndRemoveUntil(
                                   '/homescreen',
-                                      (Route<dynamic> route) => false);
+                                  (Route<dynamic> route) => false);
                             });
                           }),
                     ),

@@ -31,8 +31,8 @@ class ApiService {
     print(map);
     var response = await post(Uri.parse(Constans.api + "signin"), body: map);
     print('server response object');
-    print('${response.statusCode}');
     print('${response.body}');
+    print('${response}');
     return response;
   }
 
@@ -66,13 +66,14 @@ class ApiService {
   }
 
   Future<dynamic> editprofile(String id, String firstname, String lastname,
-      String mail, String phone, String token) async {
+      String mail, String phone, String token, String image) async {
     var map = new Map<String, dynamic>();
     map['id'] = id;
     map['firstname'] = firstname;
     map['lastname'] = lastname;
     map['mail'] = mail;
     map['phone'] = phone;
+    map['image'] = image;
     var response = await post(
         Uri.parse(Constans.api + "update_profile/${token}"),
         body: map);

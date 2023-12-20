@@ -5,7 +5,8 @@ import 'package:ultranote_infinity/utils/UserLocalStore.dart';
 import 'package:ultranote_infinity/utils/utils.dart';
 import 'package:ultranote_infinity/widget/login_btn.dart';
 import 'package:ultranote_infinity/widget/signup_btn.dart';
-
+import 'dart:convert';
+import 'dart:typed_data';
 import '../../app_theme.dart';
 
 class ProfileTab extends StatefulWidget {
@@ -22,12 +23,11 @@ class _ProfileTabState extends State<ProfileTab> {
   List<Widget> listViews = <Widget>[];
   final ScrollController scrollController = ScrollController();
   double topBarOpacity = 0.0;
-  String name = '';
+  String name = "E X";
+  String bytes = '';
 
   @override
   void initState() {
-    getUser();
-
     topBarAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
         CurvedAnimation(
             parent: widget.animationController!,
@@ -57,6 +57,7 @@ class _ProfileTabState extends State<ProfileTab> {
       }
     });
     super.initState();
+    getUser();
   }
 
   getUser() {
@@ -64,6 +65,7 @@ class _ProfileTabState extends State<ProfileTab> {
     Future<CurrentUser> cUSer = userLocalStore.getLoggedInUser();
     cUSer.then((value) {
       setState(() {
+        bytes = value.image.toString();
         name = '${value.firstName} ${value.lastName}';
       });
     });
@@ -201,16 +203,41 @@ class _ProfileTabState extends State<ProfileTab> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      width: 75,
-                      height: 75,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/icon/ultranote_icon.png"),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
+                    bytes == "https://via.placeholder.com/50" ||
+                            bytes == null ||
+                            bytes == ""
+                        ? Container(
+                            height: 75,
+                            width: 75,
+                            decoration: BoxDecoration(boxShadow: [
+                              BoxShadow(
+                                color: Colors.white.withOpacity(0.8),
+                                spreadRadius: 1,
+                                blurRadius: 1,
+                                offset: Offset(0, 1),
+                              ),
+                            ], shape: BoxShape.circle, color: Colors.grey),
+                            child: Center(
+                              child: Text(
+                                '${name.split(' ')[0].characters.isNotEmpty ? name.split(' ')[0].characters.first : ''}${name.split(' ')[1].characters.isNotEmpty ? name.split(' ')[1].characters.first : ''}',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30,
+                                ),
+                              ),
+                            ))
+                        : Container(
+                            width: 75, // Set the width as needed
+                            height: 75, // Set the height as needed
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: MemoryImage(Base64Decoder().convert(
+                                        bytes.replaceAll(
+                                            "data:image/png;base64,", "")))),
+                                shape: BoxShape.circle,
+                                color: Colors.grey),
+                          )
                   ],
                 ),
                 SizedBox(

@@ -165,55 +165,56 @@ class _UserChatScreenState extends State<UserChatScreen> {
                         itemBuilder: (context, index) {
                           return Padding(
                             padding:
-                            const EdgeInsets.only(right: 8.0, left: 8.0),
+                                const EdgeInsets.only(right: 8.0, left: 8.0),
                             child: Container(
                               height: height * 0.09,
                               width: width * 0.2,
                               child: Row(
                                 children: [
                                   obj.allActiveUsers[index].picture ==
-                                      "https://via.placeholder.com/50" ||
-                                      obj.allActiveUsers[index].picture ==
-                                          null
+                                              "https://via.placeholder.com/50" ||
+                                          obj.allActiveUsers[index].picture ==
+                                              null
                                       ? Container(
-                                    height: height * 0.07,
-                                    width: width * 0.14,
-                                    decoration: BoxDecoration(
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.white
-                                                .withOpacity(0.8),
-                                            spreadRadius: 1,
-                                            blurRadius: 1,
-                                            offset: Offset(0,
-                                                1), // changes position of shadow
-                                          ),
-                                        ],
-                                        shape: BoxShape.circle,
-                                        color: Colors.grey),
-                                    child: Center(
-                                        child: Icon(
-                                          Icons.person,
-                                          color: Colors.white,
-                                          size: width * 0.07,
-                                        )),
-                                  )
+                                          height: height * 0.07,
+                                          width: width * 0.14,
+                                          decoration: BoxDecoration(
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.white
+                                                      .withOpacity(0.8),
+                                                  spreadRadius: 1,
+                                                  blurRadius: 1,
+                                                  offset: Offset(0, 1),
+                                                ),
+                                              ],
+                                              shape: BoxShape.circle,
+                                              color: Colors.grey),
+                                          child: Center(
+                                            child: Text(
+                                              '${obj.allActiveUsers[index].name?.split(' ')[0].characters.first}${obj.allActiveUsers[index].name?.split(' ')[1].characters.first}',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 30,
+                                              ),
+                                            ),
+                                          ))
                                       : Container(
-                                    height: height * 0.07,
-                                    width: width * 0.14,
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: MemoryImage(
-                                                Base64Decoder().convert(obj
-                                                    .allActiveUsers[index]
-                                                    .picture!
-                                                    .replaceAll(
-                                                    "data:image/png;base64,",
-                                                    "")))),
-                                        shape: BoxShape.circle,
-                                        color: Colors.grey),
-                                  ),
+                                          height: height * 0.07,
+                                          width: width * 0.14,
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  fit: BoxFit.cover,
+                                                  image: MemoryImage(
+                                                      Base64Decoder().convert(obj
+                                                          .allActiveUsers[index]
+                                                          .picture!
+                                                          .replaceAll(
+                                                              "data:image/png;base64,",
+                                                              "")))),
+                                              shape: BoxShape.circle,
+                                              color: Colors.grey),
+                                        ),
                                   SizedBox(
                                     width: width * 0.04,
                                   ),
@@ -231,29 +232,32 @@ class _UserChatScreenState extends State<UserChatScreen> {
                                       ),
                                     ),
                                   ),
-                          obj.isAdmin==true?        obj.allActiveUsers[index].IsMuted == false
-                                      ? InkWell(
-                                      onTap: () {
-                                        obj.MuteUser(
-                                            obj.allActiveUsers[index]
-                                                .userId!,
-                                            "mute",
-                                            index);
-                                      },
-                                      child: Icon(Icons.mic))
-                                      : InkWell(
-                                    onTap: () {
-                                      obj.MuteUser(
-                                          obj.allActiveUsers[index]
-                                              .userId!,
-                                          "unmute",
-                                          index);
-                                    },
-                                    child: Icon(
-                                      Icons.mic_off_outlined,
-                                      color: Colors.white,
-                                    ),
-                                  ):SizedBox()
+                                  obj.isAdmin == true
+                                      ? obj.allActiveUsers[index].IsMuted ==
+                                              false
+                                          ? InkWell(
+                                              onTap: () {
+                                                obj.MuteUser(
+                                                    obj.allActiveUsers[index]
+                                                        .userId!,
+                                                    "mute",
+                                                    index);
+                                              },
+                                              child: Icon(Icons.mic))
+                                          : InkWell(
+                                              onTap: () {
+                                                obj.MuteUser(
+                                                    obj.allActiveUsers[index]
+                                                        .userId!,
+                                                    "unmute",
+                                                    index);
+                                              },
+                                              child: Icon(
+                                                Icons.mic_off_outlined,
+                                                color: Colors.white,
+                                              ),
+                                            )
+                                      : SizedBox()
                                 ],
                               ),
                             ),
@@ -351,17 +355,17 @@ class _UserChatScreenState extends State<UserChatScreen> {
                         child: obj.userAllMsgs == null
                             ? Center(child: Text("Loding"))
                             : ListView.builder(
-                          itemCount: obj.userAllMsgs!.messages!.length,
-                          itemBuilder: (context, index) {
-                            return ChatBubble(
-                              isAdmin: obj.isAdmin!,
-                              data: obj.userAllMsgs!.messages![index],
-                              receiverid: obj.userId!,
-                              size: MediaQuery.of(context).size,
-                              index: index,
-                            );
-                          },
-                        ),
+                                itemCount: obj.userAllMsgs!.messages!.length,
+                                itemBuilder: (context, index) {
+                                  return ChatBubble(
+                                    isAdmin: obj.isAdmin!,
+                                    data: obj.userAllMsgs!.messages![index],
+                                    receiverid: obj.userId!,
+                                    size: MediaQuery.of(context).size,
+                                    index: index,
+                                  );
+                                },
+                              ),
                       ),
                     ),
                     SizedBox(
@@ -369,255 +373,255 @@ class _UserChatScreenState extends State<UserChatScreen> {
                     ),
                     obj.isMuted == true
                         ? SizedBox(
-                      height: height * 0.07,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: SizedBox(
-                              child: Card(
-                                margin: const EdgeInsets.only(
-                                    left: 2, right: 2, bottom: 8),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                                child: TextFormField(
-                                  controller: msgController,
-                                  focusNode: focusNode,
-                                  cursorColor: Colors.purple,
-                                  textAlignVertical:
-                                  TextAlignVertical.center,
-                                  keyboardType: TextInputType.multiline,
-                                  maxLines: 3,
-                                  minLines: 1,
-                                  onChanged: (value) {},
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: "Type a message",
-                                    hintStyle: const TextStyle(
-                                        color: Colors.grey),
-                                    prefixIcon: IconButton(
-                                      icon: const Icon(
-                                        Icons.keyboard,
-                                        color: Colors.grey,
+                            height: height * 0.07,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: SizedBox(
+                                    child: Card(
+                                      margin: const EdgeInsets.only(
+                                          left: 2, right: 2, bottom: 8),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(25),
                                       ),
-                                      onPressed: () {
-                                        if (!show) {
-                                          focusNode.unfocus();
-                                          focusNode.canRequestFocus =
-                                          false;
-                                        }
-                                        setState(() {
-                                          show = !show;
-                                        });
-                                      },
-                                    ),
-                                    suffixIcon: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        IconButton(
-                                          icon: const Icon(
-                                            Icons.attach_file,
-                                            color: Colors.grey,
+                                      child: TextFormField(
+                                        controller: msgController,
+                                        focusNode: focusNode,
+                                        cursorColor: Colors.purple,
+                                        textAlignVertical:
+                                            TextAlignVertical.center,
+                                        keyboardType: TextInputType.multiline,
+                                        maxLines: 3,
+                                        minLines: 1,
+                                        onChanged: (value) {},
+                                        decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          hintText: "Type a message",
+                                          hintStyle: const TextStyle(
+                                              color: Colors.grey),
+                                          prefixIcon: IconButton(
+                                            icon: const Icon(
+                                              Icons.keyboard,
+                                              color: Colors.grey,
+                                            ),
+                                            onPressed: () {
+                                              if (!show) {
+                                                focusNode.unfocus();
+                                                focusNode.canRequestFocus =
+                                                    false;
+                                              }
+                                              setState(() {
+                                                show = !show;
+                                              });
+                                            },
                                           ),
-                                          onPressed: () {},
+                                          suffixIcon: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              IconButton(
+                                                icon: const Icon(
+                                                  Icons.attach_file,
+                                                  color: Colors.grey,
+                                                ),
+                                                onPressed: () {},
+                                              ),
+                                            ],
+                                          ),
+                                          contentPadding:
+                                              const EdgeInsets.all(5),
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                    contentPadding:
-                                    const EdgeInsets.all(5),
                                   ),
                                 ),
-                              ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                    bottom: 8,
+                                    right: 2,
+                                    left: 2,
+                                  ),
+                                  child: CircleAvatar(
+                                    radius: 25,
+                                    backgroundColor: Colors.white,
+                                    child: IconButton(
+                                        icon: const Icon(Icons.send,
+                                            color: Colors.grey),
+                                        onPressed: () {}),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: width * 0.02,
+                                )
+                              ],
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: 8,
-                              right: 2,
-                              left: 2,
-                            ),
-                            child: CircleAvatar(
-                              radius: 25,
-                              backgroundColor: Colors.white,
-                              child: IconButton(
-                                  icon: const Icon(Icons.send,
-                                      color: Colors.grey),
-                                  onPressed: () {}),
-                            ),
-                          ),
-                          SizedBox(
-                            width: width * 0.02,
                           )
-                        ],
-                      ),
-                    )
                         : SizedBox(
-                      height: height * 0.07,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: SizedBox(
-                              child: Card(
-                                margin: const EdgeInsets.only(
-                                    left: 2, right: 2, bottom: 8),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                                child: TextFormField(
-                                  controller: msgController,
-                                  focusNode: focusNode,
-                                  cursorColor: Colors.purple,
-                                  textAlignVertical:
-                                  TextAlignVertical.center,
-                                  keyboardType: TextInputType.multiline,
-                                  maxLines: 3,
-                                  minLines: 1,
-                                  onChanged: (value) {},
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: "Type a message",
-                                    hintStyle: const TextStyle(
-                                        color: Colors.grey),
-                                    prefixIcon: IconButton(
-                                      icon: const Icon(
-                                        Icons.keyboard,
-                                        color: Colors.purple,
+                            height: height * 0.07,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: SizedBox(
+                                    child: Card(
+                                      margin: const EdgeInsets.only(
+                                          left: 2, right: 2, bottom: 8),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(25),
                                       ),
-                                      onPressed: () {
-                                        if (!show) {
-                                          focusNode.unfocus();
-                                          focusNode.canRequestFocus =
-                                          false;
-                                        }
-                                        setState(() {
-                                          show = !show;
-                                        });
-                                      },
-                                    ),
-                                    suffixIcon: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        IconButton(
-                                          icon: const Icon(
-                                            Icons.attach_file,
-                                            color: Colors.purple,
+                                      child: TextFormField(
+                                        controller: msgController,
+                                        focusNode: focusNode,
+                                        cursorColor: Colors.purple,
+                                        textAlignVertical:
+                                            TextAlignVertical.center,
+                                        keyboardType: TextInputType.multiline,
+                                        maxLines: 3,
+                                        minLines: 1,
+                                        onChanged: (value) {},
+                                        decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          hintText: "Type a message",
+                                          hintStyle: const TextStyle(
+                                              color: Colors.grey),
+                                          prefixIcon: IconButton(
+                                            icon: const Icon(
+                                              Icons.keyboard,
+                                              color: Colors.purple,
+                                            ),
+                                            onPressed: () {
+                                              if (!show) {
+                                                focusNode.unfocus();
+                                                focusNode.canRequestFocus =
+                                                    false;
+                                              }
+                                              setState(() {
+                                                show = !show;
+                                              });
+                                            },
                                           ),
-                                          onPressed: () {
-                                            showModalBottomSheet(
-                                                backgroundColor:
-                                                Colors.transparent,
-                                                context: context,
-                                                builder:
-                                                    (builder) => SizedBox(
-                                                  height: 170,
-                                                  width: MediaQuery.of(
-                                                      context)
-                                                      .size
-                                                      .width,
-                                                  child: Card(
-                                                    margin:
-                                                    const EdgeInsets
-                                                        .all(
-                                                        18.0),
-                                                    shape: RoundedRectangleBorder(
-                                                        borderRadius:
-                                                        BorderRadius.circular(
-                                                            15)),
-                                                    child:
-                                                    Padding(
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                          horizontal:
-                                                          10,
-                                                          vertical:
-                                                          20),
-                                                      child:
-                                                      Column(
-                                                        children: [
-                                                          Row(
-                                                            mainAxisAlignment:
-                                                            MainAxisAlignment.center,
-                                                            children: [
-                                                              iconCreation(
-                                                                Icons.camera_alt,
-                                                                Colors.pink,
-                                                                "Camera",
-                                                                    () async {
-                                                                  print("object");
-                                                                  XFile? pickedImage = await ImagePicker().pickImage(source: ImageSource.camera);
-                                                                  if (pickedImage != null) {
-                                                                    File imageFile = File(pickedImage.path);
-                                                                    Uint8List imagebytes = await imageFile.readAsBytes(); //convert to bytes
-                                                                    String base64string = 'data:image/png;base64,' + base64.encode(imagebytes);
-                                                                    obj.sendMsg("image", base64string);
-                                                                  }
-                                                                  Navigator.pop(context);
-                                                                },
-                                                              ),
-                                                              const SizedBox(width: 40),
-                                                              iconCreation(
-                                                                Icons.insert_photo,
-                                                                Colors.purple,
-                                                                "Gallery",
-                                                                    () async {
-                                                                  print("object");
-                                                                  XFile? pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
-                                                                  if (pickedImage != null) {
-                                                                    File imageFile = File(pickedImage.path);
-                                                                    Uint8List imagebytes = await imageFile.readAsBytes(); //convert to bytes
-                                                                    String base64string = 'data:image/png;base64,' + base64.encode(imagebytes);
-                                                                    obj.sendMsg("image", base64string);
-                                                                  }
-                                                                  Navigator.pop(context);
-                                                                },
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ));
-                                          },
+                                          suffixIcon: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              IconButton(
+                                                icon: const Icon(
+                                                  Icons.attach_file,
+                                                  color: Colors.purple,
+                                                ),
+                                                onPressed: () {
+                                                  showModalBottomSheet(
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      context: context,
+                                                      builder:
+                                                          (builder) => SizedBox(
+                                                                height: 170,
+                                                                width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width,
+                                                                child: Card(
+                                                                  margin:
+                                                                      const EdgeInsets
+                                                                              .all(
+                                                                          18.0),
+                                                                  shape: RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              15)),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: const EdgeInsets
+                                                                            .symmetric(
+                                                                        horizontal:
+                                                                            10,
+                                                                        vertical:
+                                                                            20),
+                                                                    child:
+                                                                        Column(
+                                                                      children: [
+                                                                        Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            iconCreation(
+                                                                              Icons.camera_alt,
+                                                                              Colors.pink,
+                                                                              "Camera",
+                                                                              () async {
+                                                                                print("object");
+                                                                                XFile? pickedImage = await ImagePicker().pickImage(source: ImageSource.camera);
+                                                                                if (pickedImage != null) {
+                                                                                  File imageFile = File(pickedImage.path);
+                                                                                  Uint8List imagebytes = await imageFile.readAsBytes(); //convert to bytes
+                                                                                  String base64string = 'data:image/png;base64,' + base64.encode(imagebytes);
+                                                                                  obj.sendMsg("image", base64string);
+                                                                                }
+                                                                                Navigator.pop(context);
+                                                                              },
+                                                                            ),
+                                                                            const SizedBox(width: 40),
+                                                                            iconCreation(
+                                                                              Icons.insert_photo,
+                                                                              Colors.purple,
+                                                                              "Gallery",
+                                                                              () async {
+                                                                                print("object");
+                                                                                XFile? pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+                                                                                if (pickedImage != null) {
+                                                                                  File imageFile = File(pickedImage.path);
+                                                                                  Uint8List imagebytes = await imageFile.readAsBytes(); //convert to bytes
+                                                                                  String base64string = 'data:image/png;base64,' + base64.encode(imagebytes);
+                                                                                  obj.sendMsg("image", base64string);
+                                                                                }
+                                                                                Navigator.pop(context);
+                                                                              },
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ));
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                          contentPadding:
+                                              const EdgeInsets.all(5),
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                    contentPadding:
-                                    const EdgeInsets.all(5),
                                   ),
                                 ),
-                              ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                    bottom: 8,
+                                    right: 2,
+                                    left: 2,
+                                  ),
+                                  child: CircleAvatar(
+                                    radius: 25,
+                                    backgroundColor: Colors.white,
+                                    child: IconButton(
+                                        icon: const Icon(Icons.send,
+                                            color: Colors.purple),
+                                        onPressed: () {
+                                          if (msgController.text
+                                              .trim()
+                                              .isNotEmpty) {
+                                            obj.sendMsg(
+                                                "text", msgController.text);
+                                            msgController.clear();
+                                          }
+                                        }),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: width * 0.02,
+                                )
+                              ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: 8,
-                              right: 2,
-                              left: 2,
-                            ),
-                            child: CircleAvatar(
-                              radius: 25,
-                              backgroundColor: Colors.white,
-                              child: IconButton(
-                                  icon: const Icon(Icons.send,
-                                      color: Colors.purple),
-                                  onPressed: () {
-                                    if (msgController.text
-                                        .trim()
-                                        .isNotEmpty) {
-                                      obj.sendMsg(
-                                          "text", msgController.text);
-                                      msgController.clear();
-                                    }
-                                  }),
-                            ),
-                          ),
-                          SizedBox(
-                            width: width * 0.02,
-                          )
-                        ],
-                      ),
-                    ),
                     SizedBox(
                       height: height * 0.09,
                     ),

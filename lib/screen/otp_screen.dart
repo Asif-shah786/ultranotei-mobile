@@ -127,6 +127,7 @@ class _OTPScreenState extends State<OTPScreen> {
       ),
     );
   }
+
   submitPress() {
     print('login');
 
@@ -146,7 +147,6 @@ class _OTPScreenState extends State<OTPScreen> {
       if (value.statusCode == 400) {
         showSnackBar(context, extractData['message']);
       } else {
-
         if (extractData['status'] == "next") {
           Navigator.push(
               context,
@@ -167,6 +167,7 @@ class _OTPScreenState extends State<OTPScreen> {
               extractData['user']['isWalletCreated'].toString(),
               extractData['user']['currency'].toString(),
               extractData['user']['id'].toString(),
+              extractData['user']['image'].toString(),
               extractData['token'].toString(),
               widget.pass);
           UserLocalStore userLocalStore = new UserLocalStore();

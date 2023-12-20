@@ -17,8 +17,8 @@ class UserLocalStore {
         'iswalletcreated', cUser.isWalletCreated.toString());
     userLocalDatabase.setString('currency', cUser.currency.toString());
     userLocalDatabase.setString('id', cUser.id.toString());
+    userLocalDatabase.setString('image', cUser.image.toString());
     userLocalDatabase.setString('token', cUser.token.toString());
-
     userLocalDatabase.setString('pass', cUser.pass.toString());
   }
 
@@ -38,6 +38,7 @@ class UserLocalStore {
     var isActive = userLocalDatabase.getString('isactive');
     var isWalletCreated = userLocalDatabase.getString('iswalletcreated');
     var currency = userLocalDatabase.getString('currency');
+    var image = userLocalDatabase.getString('image');
     var id = userLocalDatabase.getString('id');
     var token = userLocalDatabase.getString('token');
 
@@ -54,6 +55,7 @@ class UserLocalStore {
         isWalletCreated,
         currency,
         id,
+        image,
         token,
         pass);
     return currentUser;
