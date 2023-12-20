@@ -21,7 +21,7 @@ class UserChatController extends GetxController {
   String? userFullName;
   bool? isMuted = false;
   bool? isAdmin = false;
-
+  String? image;
   clearData() {
     allActiveUsers = [];
     allChatMsgs = [];
@@ -33,6 +33,7 @@ class UserChatController extends GetxController {
     userLocalStore.getLoggedInUser().then((value) {
       userId = value.id;
       userFullName = ("${value.firstName} ${value.lastName}").trim();
+      image = value.image;
       update();
     });
   }
@@ -160,7 +161,7 @@ class UserChatController extends GetxController {
         time: time,
         name: userFullName,
         userId: userId,
-        picture: null);
+        picture: image);
     userAllMsgs!.messages!.add(model);
     update();
   }
