@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class NumericStepButton extends StatefulWidget {
   final int minValue;
+  final int maxValue;
   final int incrementVal;
   int counter;
   final void Function(int) onChanged;
@@ -9,6 +10,7 @@ class NumericStepButton extends StatefulWidget {
   NumericStepButton(
       {Key? key,
       this.minValue = 0,
+      this.maxValue = 12,
       this.incrementVal = 22000,
       required this.counter,
       required this.onChanged})
@@ -65,7 +67,9 @@ class _NumericStepButtonState extends State<NumericStepButton> {
             color: Theme.of(context).primaryColor,
             onPressed: () {
               setState(() {
-                widget.counter += widget.incrementVal;
+                if (widget.counter < widget.maxValue) {
+                  widget.counter += widget.incrementVal;
+                }
               });
               widget.onChanged(widget.counter);
             },
