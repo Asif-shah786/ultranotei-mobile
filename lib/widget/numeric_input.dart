@@ -10,7 +10,7 @@ class NumericStepButton extends StatefulWidget {
   NumericStepButton(
       {Key? key,
       this.minValue = 0,
-      this.maxValue = 12,
+      this.maxValue = (12 * 22000),
       this.incrementVal = 22000,
       required this.counter,
       required this.onChanged})
